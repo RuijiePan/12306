@@ -8,7 +8,8 @@ import android.support.annotation.NonNull;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.gzsll.hupu.R;
+
+import ruijie.com.my12306.R;
 
 /**
  * Created by sll on 2015/9/6 0006.

@@ -11,11 +11,11 @@ public class GreenDaoGenerator {
     public static final int VERSION = 1;
     public static final String GREEN_DAO_CODE_PATH = "../my12306/app/src/main/java";
     public static final String DEAFULT_DAO_PACKAGE = "ruijie.com.my12306.db.dao";
-    public static final String DEAFULT_ENTITY_PACKAGE = "ruijie.com.my12306.db.entityu.entity";
+    public static final String DEAFULT_ENTITY_PACKAGE = "ruijie.com.my12306.db.entity";
 
     public static void main(String[] args) throws Exception {
         Schema schema = new Schema(VERSION,DEAFULT_DAO_PACKAGE);
-        schema.setDefaultJavaPackageDao(GREEN_DAO_CODE_PATH+DEAFULT_ENTITY_PACKAGE);
+        schema.setDefaultJavaPackageDao(DEAFULT_ENTITY_PACKAGE);
 
         Entity user = schema.addEntity("User");
         user.addIdProperty();

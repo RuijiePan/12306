@@ -4,8 +4,8 @@ import android.content.Context;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
-import demo.ruijie.com.sharedemo.db.User;
-import demo.ruijie.com.sharedemo.util.SettingPrefUtil;
+import ruijie.com.my12306.db.dao.User;
+import ruijie.com.my12306.util.SettingPrefUtil;
 
 /**
  * Created by prj on 2016/8/15.

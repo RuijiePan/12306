@@ -36,7 +36,7 @@ public class ApplicationMoudle {
     }
 
     @Provides @Singleton @Named("api")
-    OkHttpClient provideApiOkHttpClient(CookieInterceptor mCookieInterceptor){
+    OkHttpClient provideApiOkHttpClient(){
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
@@ -44,7 +44,7 @@ public class ApplicationMoudle {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         builder.addInterceptor(loggingInterceptor);
-        builder.addInterceptor(mCookieInterceptor);
+        //builder.addInterceptor(mCookieInterceptor);
         return builder.build();
     }
 
