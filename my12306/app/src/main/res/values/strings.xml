@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">my12306</string>
+    <string name="app_name">12306</string>
     <string name="login">登录</string>
     <string name="sure">确定</string>
     <string name="ticket_booking">车票预订</string>
