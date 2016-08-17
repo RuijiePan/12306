@@ -1,8 +1,9 @@
-package ruijie.com.my12306;
+package ruijie.com.my12306.ui.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import ruijie.com.my12306.R;
 import ruijie.com.my12306.ui.base.BaseActivity;
 import ruijie.com.my12306.ui.base.BaseSwipeBackActivity;
 
