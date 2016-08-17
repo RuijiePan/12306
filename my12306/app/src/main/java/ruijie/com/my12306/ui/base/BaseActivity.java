@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         getApplicationComponent().inject(this);
-        initTheme();
+        //initTheme();
         super.onCreate(savedInstanceState);
         setTranslucentStatus(isApplyStatusBarTranslucency());
         setStatusBarColor(isApplyStatusBarColor());
