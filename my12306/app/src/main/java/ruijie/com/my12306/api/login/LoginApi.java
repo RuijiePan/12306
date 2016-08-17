@@ -33,7 +33,7 @@ public class LoginApi {
         loginService = retrofit.create(LoginService.class);
     }
 
-    public Observable<loginBean> login(String username,String password){
+    public Observable<loginBean> login(String username, String password){
         HashMap<String,String> params = new HashMap<>();
         params.put("username",username);
         params.put("password",password);
