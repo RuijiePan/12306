@@ -15,9 +15,11 @@ import ruijie.com.my12306.MyApplication;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.injector.component.ActivityComponent;
 import ruijie.com.my12306.injector.component.ApplicationComponent;
+import ruijie.com.my12306.injector.moudel.ActivityMoudle;
 import ruijie.com.my12306.util.ResourceUtil;
 import ruijie.com.my12306.util.SettingPrefUtil;
 import ruijie.com.my12306.util.StatusBarUtil;
+import ruijie.com.my12306.util.ThemeUtil;
 
 /**
  * Created by Administrator on 2016/8/16.
@@ -25,15 +27,12 @@ import ruijie.com.my12306.util.StatusBarUtil;
 
 public abstract class BaseActivity extends AppCompatActivity{
 
-    protected ActivityComponent mActivityComponent;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
         getApplicationComponent().inject(this);
-        //initTheme();
+        initTheme();
         super.onCreate(savedInstanceState);
+        setContentView(initContentView());
         setTranslucentStatus(isApplyStatusBarTranslucency());
         setStatusBarColor(isApplyStatusBarColor());
         initInjector();
@@ -41,11 +40,17 @@ public abstract class BaseActivity extends AppCompatActivity{
         AppManager.getAppManager().addActivity(this);
     }
 
+    protected abstract int initContentView();
+
     protected ApplicationComponent getApplicationComponent() {
-        return ((MyApplication) getApplication()).getApplicationComponent();
+        return ((MyApplication)getApplication()).getApplicationComponent();
     }
 
-    /*private void initTheme() {
+    protected ActivityMoudle getActivityMoudle(){
+        return new ActivityMoudle(this);
+    }
+
+    private void initTheme() {
         int theme;
         try {
             theme = getPackageManager().getActivityInfo(getComponentName(), 0).theme;
@@ -57,7 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity{
                     SettingPrefUtil.getNightModel(this) ? 1 : 0];
         }
         setTheme(theme);
-    }*/
+    }
 
     /**
      * set status bar translucency

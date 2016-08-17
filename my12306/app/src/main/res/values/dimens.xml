@@ -20,4 +20,6 @@
   <dimen name="preference_fragment_padding_side">16dp</dimen>
 
   <integer name="preference_fragment_scrollbarStyle">0x02000000</integer>
+
+  <dimen name="margin_top">20dp</dimen>
 </resources>

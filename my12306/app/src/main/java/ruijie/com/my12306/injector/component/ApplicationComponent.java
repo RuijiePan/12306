@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import ruijie.com.my12306.MyApplication;
+import ruijie.com.my12306.api.login.LoginApi;
 import ruijie.com.my12306.components.okhttp.OkHttpHelper;
 import ruijie.com.my12306.components.storage.UserStorage;
 import ruijie.com.my12306.db.entity.UserDao;
@@ -28,6 +29,8 @@ public interface ApplicationComponent {
     OkHttpHelper getOkHttpHelper();
 
     UserStorage getUserStorage();
+
+    LoginApi getLoginApi();
 
     void inject(MyApplication application);
 

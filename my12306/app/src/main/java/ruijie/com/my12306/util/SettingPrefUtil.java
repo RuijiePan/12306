@@ -18,7 +18,7 @@ public class SettingPrefUtil {
 
   public static int getThemeIndex(Context context) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    return prefs.getInt("ThemeIndex", 9);
+    return prefs.getInt("ThemeIndex", 7);
   }
 
   public static void setThemeIndex(Context context, int index) {

@@ -1,7 +1,6 @@
 package ruijie.com.my12306.ui.base;
 
 import android.support.annotation.NonNull;
-import android.view.View;
 
 /**
  * Created by Administrator on 2016/8/17.
