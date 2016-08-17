@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import ruijie.com.my12306.injector.PerActivity;
 
 /**
  * Created by Administrator on 2016/8/16.
@@ -19,7 +20,7 @@ public class ActivityMoudle {
         this.mActivity = activity;
     }
 
-    @Provides @Singleton
+    @Provides @PerActivity
     public Activity proviceActivity(){
         return mActivity;
     }

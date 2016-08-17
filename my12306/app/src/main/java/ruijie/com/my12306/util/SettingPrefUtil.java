@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.gzsll.hupu.Constants;
-import com.gzsll.hupu.R;
+import ruijie.com.my12306.R;
 
 /**
  * Created by sll on 2015/5/16.
@@ -73,12 +72,6 @@ public class SettingPrefUtil {
   private static int getTextSizePref(Context context) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
     return Integer.parseInt(prefs.getString("pTextSize", "3"));
-  }
-
-  public static String getThreadSort(Context context) {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    return Integer.parseInt(prefs.getString("pThreadSort", "0")) == 0 ? Constants.THREAD_TYPE_NEW
-        : Constants.THREAD_TYPE_HOT;
   }
 
   public static boolean getNightModel(Context context) {

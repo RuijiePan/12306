@@ -18,7 +18,6 @@ import ruijie.com.my12306.injector.component.ApplicationComponent;
 import ruijie.com.my12306.util.ResourceUtil;
 import ruijie.com.my12306.util.SettingPrefUtil;
 import ruijie.com.my12306.util.StatusBarUtil;
-import ruijie.com.my12306.util.ThemeUtil;
 
 /**
  * Created by Administrator on 2016/8/16.
@@ -46,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         return ((MyApplication) getApplication()).getApplicationComponent();
     }
 
-    private void initTheme() {
+    /*private void initTheme() {
         int theme;
         try {
             theme = getPackageManager().getActivityInfo(getComponentName(), 0).theme;
@@ -58,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity{
                     SettingPrefUtil.getNightModel(this) ? 1 : 0];
         }
         setTheme(theme);
-    }
+    }*/
 
     /**
      * set status bar translucency

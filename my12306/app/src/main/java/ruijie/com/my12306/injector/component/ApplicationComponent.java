@@ -6,6 +6,7 @@ import android.content.Context;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import ruijie.com.my12306.MyApplication;
 import ruijie.com.my12306.components.okhttp.OkHttpHelper;
 import ruijie.com.my12306.components.storage.UserStorage;
 import ruijie.com.my12306.db.entity.UserDao;
@@ -28,7 +29,7 @@ public interface ApplicationComponent {
 
     UserStorage getUserStorage();
 
-    void inject(Application application);
+    void inject(MyApplication application);
 
     void inject(BaseActivity mBaseActivity);
 }

@@ -29,10 +29,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 
-import com.gzsll.hupu.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ruijie.com.my12306.R;
 
 public class SwipeBackLayout extends FrameLayout {
   /**
