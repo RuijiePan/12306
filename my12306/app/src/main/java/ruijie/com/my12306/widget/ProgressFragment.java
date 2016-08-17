@@ -1,8 +1,19 @@
 package ruijie.com.my12306.widget;
 
 import android.app.Fragment;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+
+import ruijie.com.my12306.R;
+import ruijie.com.my12306.widget.state.EmptyState;
+import ruijie.com.my12306.widget.state.ErrorState;
+import ruijie.com.my12306.widget.state.NonState;
+import ruijie.com.my12306.widget.state.ProgressState;
+import ruijie.com.my12306.widget.state.ShowState;
 
 /**
  * Created by Administrator on 2016/8/17.
@@ -11,6 +22,7 @@ import android.view.View;
 public class ProgressFragment extends Fragment{
 
     public boolean isPrepare = false;
+    private View mContentView;
 
     //Override this method to change content view
     public View onCreateContentView(LayoutInflater inflater) {
@@ -20,5 +32,105 @@ public class ProgressFragment extends Fragment{
     //Override this method to change error view
     public View onCreateContentErrorView(LayoutInflater inflater) {
         return null;
+    }
+
+    public View onCreateContentEmptyView(LayoutInflater inflater) {
+        return null;
+    }
+
+    public View onCreateProgressView(LayoutInflater inflater) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        ViewGroup main = (ViewGroup) inflater.inflate(R.layout.epf_layout,container,false);
+
+        View content = onCreateContentView(inflater);
+        View error = onCreateContentErrorView(inflater);
+        View empty = onCreateContentEmptyView(inflater);
+        View progress = onCreateProgressView(inflater);
+
+        replaceViewById(main, R.id.epf_content, content);
+        replaceViewById(main, R.id.epf_error, error);
+        replaceViewById(main, R.id.epf_empty, empty);
+        replaceViewById(main, R.id.epf_progress, progress);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    private void replaceViewById(ViewGroup container, int viewId, View newView) {
+        if(newView==null){
+            return;
+        }
+        newView.setId(viewId);
+        View oldView = container.findViewById(viewId);
+        int index = container.indexOfChild(oldView);
+        container.removeView(oldView);
+        container.addView(newView,index);
+
+        newView.setVisibility(View.GONE);
+    }
+
+    private ShowState mEmptyState,mProgressState,mErrorState,mContentState,mLoginState,mCollectState;
+    private Animation mAnimIn,mAnimOut;
+
+    private void initState(){
+
+        mEmptyState = new EmptyState();
+        mProgressState = new ProgressState();
+        mErrorState = new ErrorState();
+        mEmptyState = new EmptyState();
+
+        initState(mEmptyState);
+        initState(mProgressState);
+        initState(mErrorState);
+        initState(mContentState);
+    }
+
+    private void initState(ShowState state) {
+        state.setAnimIn(mAnimIn);
+        state.setAnimOut(mAnimOut);
+        state.setFragmentView(mContentView);
+    }
+
+    private ShowState mLastState = new NonState();
+
+    public void showContent(boolean animate){
+        if(mLastState == mContentState){
+            return;
+        }
+
+        mContentState.show(animate);
+        mLastState.dismiss(animate);
+        mLastState = mCollectState;
+    }
+
+    public void showEmpty(boolean animate) {
+        if (mLastState == mEmptyState) {
+            return;
+        }
+        mEmptyState.show(animate);
+        mLastState.dismiss(animate);
+        mLastState = mEmptyState;
+    }
+
+    public void showError(boolean animate) {
+        if (mLastState == mErrorState) {
+            return;
+        }
+        mErrorState.show(animate);
+        mLastState.dismiss(animate);
+        mLastState = mErrorState;
+    }
+
+    public void showProgress(boolean animate) {
+        if (mLastState == mProgressState) {
+            return;
+        }
+        mProgressState.show(animate);
+        mLastState.dismiss(animate);
+        mLastState = mProgressState;
     }
 }
