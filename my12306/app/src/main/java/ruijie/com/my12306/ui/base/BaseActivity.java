@@ -1,5 +1,6 @@
 package ruijie.com.my12306.ui.base;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -131,5 +132,9 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override protected void onDestroy() {
         super.onDestroy();
         AppManager.getAppManager().finishActivity(this);
+    }
+
+    public void showFragmentById(Fragment fragment){
+        getFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
     }
 }

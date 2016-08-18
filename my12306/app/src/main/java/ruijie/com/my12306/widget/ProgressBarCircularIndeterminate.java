@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 /**
  * Created by Administrator on 2016/8/17.
  */
-
 public class ProgressBarCircularIndeterminate extends RelativeLayout {
 
     final static String MATERIALDESIGNXML = "http://schemas.android.com/apk/res-auto";
@@ -39,12 +38,11 @@ public class ProgressBarCircularIndeterminate extends RelativeLayout {
         setAttributes(attrs);
     }
 
-    @Override
-    public void setEnabled(boolean enabled) {
+    @Override public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        if(enabled){
+        if (enabled) {
             setBackgroundColor(beforeBackground);
-        }else {
+        } else {
             setBackgroundColor(disabledBackgroundColor);
         }
         invalidate();
@@ -62,29 +60,26 @@ public class ProgressBarCircularIndeterminate extends RelativeLayout {
         animation = false;
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
+    @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(animation)
-            invalidate();
-        if(firstAnimationOver==false)
-            drawFirstAnimation(canvas);
-        if(cont>0)
-            drawSecondAnimation(canvas);
+        if (animation) invalidate();
+        if (firstAnimationOver == false) drawFirstAnimation(canvas);
+        if (cont > 0) drawSecondAnimation(canvas);
         invalidate();
     }
 
     // Set atributtes of XML to View
     protected void setAttributes(AttributeSet attrs) {
-        setMinimumHeight(dpToPx(32,getResources()));
-        setMinimumWidth(dpToPx(32,getResources()));
+
+        setMinimumHeight(dpToPx(32, getResources()));
+        setMinimumWidth(dpToPx(32, getResources()));
 
         //Set background Color
         // Color by resource
         int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML, "background", -1);
-        if(bacgroundColor==-1){
+        if (bacgroundColor != -1) {
             setBackgroundColor(getResources().getColor(bacgroundColor));
-        }else {
+        } else {
             // Color by hexadecimal
             int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
             if (background != -1) {
@@ -93,26 +88,38 @@ public class ProgressBarCircularIndeterminate extends RelativeLayout {
                 setBackgroundColor(Color.parseColor("#1E88E5"));
             }
         }
+
         setMinimumHeight(dpToPx(3, getResources()));
+    }
+
+    protected int makePressColor() {
+        int r = (this.backgroundColor >> 16) & 0xFF;
+        int g = (this.backgroundColor >> 8) & 0xFF;
+        int b = (this.backgroundColor >> 0) & 0xFF;
+        //		r = (r+90 > 245) ? 245 : r+90;
+        //		g = (g+90 > 245) ? 245 : g+90;
+        //		b = (b+90 > 245) ? 245 : b+90;
+        return Color.argb(128, r, g, b);
     }
 
     /**
      * Draw first animation of view
      */
-    private void drawFirstAnimation(Canvas canvas){
-        if(radius1<getWidth()/2){
+    private void drawFirstAnimation(Canvas canvas) {
+        if (radius1 < getWidth() / 2) {
             Paint paint = new Paint();
             paint.setAntiAlias(true);
             paint.setColor(makePressColor());
-            radius1 = (radius1>=getWidth()/2)?(float)getWidth()/2:radius1+1;
-            canvas.drawCircle(getWidth()/2,getHeight()/2,radius1,paint);
-        }else {
-            Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(),canvas.getHeight(), Bitmap.Config.ARGB_8888);
+            radius1 = (radius1 >= getWidth() / 2) ? (float) getWidth() / 2 : radius1 + 1;
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius1, paint);
+        } else {
+            Bitmap bitmap =
+                    Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas temp = new Canvas(bitmap);
             Paint paint = new Paint();
             paint.setAntiAlias(true);
             paint.setColor(makePressColor());
-            temp.drawCircle(getWidth()/2,getHeight()/2,getHeight()/2,paint);
+            temp.drawCircle(getWidth() / 2, getHeight() / 2, getHeight() / 2, paint);
             Paint transparentPaint = new Paint();
             transparentPaint.setAntiAlias(true);
             transparentPaint.setColor(getResources().getColor(android.R.color.transparent));
@@ -138,29 +145,28 @@ public class ProgressBarCircularIndeterminate extends RelativeLayout {
     /**
      * Draw second animation of view
      */
-    private void drawSecondAnimation(Canvas canvas){
-        if(arcD == limite)
-            arcD += 6;
-        if(arcD>=290 ||arcD>limite){
+    private void drawSecondAnimation(Canvas canvas) {
+        if (arcO == limite) arcD += 6;
+        if (arcD >= 290 || arcO > limite) {
             arcO += 6;
             arcD -= 6;
         }
-        if(arcO>limite+290){
+        if (arcO > limite + 290) {
             limite = arcO;
             arcO = limite;
             arcD = 1;
         }
         rotateAngle += 4;
-        canvas.rotate(rotateAngle,getWidth()/2,getHeight()/2);
+        canvas.rotate(rotateAngle, getWidth() / 2, getHeight() / 2);
 
-        Bitmap bitmap =Bitmap.createBitmap(canvas.getWidth(),canvas.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bitmap =
+                Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas temp = new Canvas(bitmap);
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(backgroundColor);
-
         //		temp.drawARGB(0, 0, 0, 255);
-        temp.drawArc(new RectF(0,0,getWidth(),getHeight()),arcO,arcD,true,paint);
+        temp.drawArc(new RectF(0, 0, getWidth(), getHeight()), arcO, arcD, true, paint);
         Paint transparentPaint = new Paint();
         transparentPaint.setAntiAlias(true);
         transparentPaint.setColor(getResources().getColor(android.R.color.transparent));
@@ -171,14 +177,11 @@ public class ProgressBarCircularIndeterminate extends RelativeLayout {
         canvas.drawBitmap(bitmap, 0, 0, new Paint());
     }
 
-    protected int makePressColor() {
-        int r = (this.backgroundColor >> 16) & 0xFF;
-        int g = (this.backgroundColor >> 8) & 0xFF;
-        int b = (this.backgroundColor >> 0) & 0xFF;
-        //		r = (r+90 > 245) ? 245 : r+90;
-        //		g = (g+90 > 245) ? 245 : g+90;
-        //		b = (b+90 > 245) ? 245 : b+90;
-        return Color.argb(128, r, g, b);
+    // Set color of background
+    public void setBackgroundColor(int color) {
+        super.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        if (isEnabled()) beforeBackground = backgroundColor;
+        this.backgroundColor = color;
     }
 
     public static int dpToPx(float dp, Resources resources) {
