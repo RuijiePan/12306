@@ -39,7 +39,8 @@ public class BookingFragment extends BaseLazyLoadFragment {
 
     @Override
     public void initUI(View view) {
-
+        showProgress(true);
+        //showContent(true);
     }
 
     @Override

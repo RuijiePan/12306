@@ -40,7 +40,7 @@ public class MeFragment extends BaseLazyLoadFragment {
 
     @Override
     public void initUI(View view) {
-
+        showContent(true);
     }
 
     @Override

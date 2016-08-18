@@ -40,7 +40,7 @@ public class SearchFragment extends BaseLazyLoadFragment{
 
     @Override
     public void initUI(View view) {
-
+        showContent(true);
     }
 
     @Override

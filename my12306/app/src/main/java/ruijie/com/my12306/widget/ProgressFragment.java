@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import ruijie.com.my12306.R;
+import ruijie.com.my12306.widget.state.ContentState;
 import ruijie.com.my12306.widget.state.EmptyState;
 import ruijie.com.my12306.widget.state.ErrorState;
 import ruijie.com.my12306.widget.state.NonState;
@@ -19,10 +21,9 @@ import ruijie.com.my12306.widget.state.ShowState;
  * Created by Administrator on 2016/8/17.
  */
 
-public class ProgressFragment extends Fragment{
+public class ProgressFragment extends Fragment {
 
     public boolean isPrepare = false;
-    private View mContentView;
 
     //Override this method to change content view
     public View onCreateContentView(LayoutInflater inflater) {
@@ -42,11 +43,11 @@ public class ProgressFragment extends Fragment{
         return null;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    private View mContentView;
 
-        ViewGroup main = (ViewGroup) inflater.inflate(R.layout.epf_layout,container,false);
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                       Bundle savedInstanceState) {
+        ViewGroup main = (ViewGroup) inflater.inflate(R.layout.epf_layout, container, false);
 
         View content = onCreateContentView(inflater);
         View error = onCreateContentErrorView(inflater);
@@ -57,31 +58,48 @@ public class ProgressFragment extends Fragment{
         replaceViewById(main, R.id.epf_error, error);
         replaceViewById(main, R.id.epf_empty, empty);
         replaceViewById(main, R.id.epf_progress, progress);
-        return super.onCreateView(inflater, container, savedInstanceState);
+
+        mContentView = main;
+
+        mAnimIn = onCreateAnimationIn();
+        mAnimOut = onCreateAnimationOut();
+
+        initStates();
+        isPrepare = true;
+        return main;
+    }
+
+    public Animation onCreateAnimationIn() {
+        return AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in);
+    }
+
+    public Animation onCreateAnimationOut() {
+        return AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out);
     }
 
     private void replaceViewById(ViewGroup container, int viewId, View newView) {
-        if(newView==null){
+        if (newView == null) {
             return;
         }
         newView.setId(viewId);
         View oldView = container.findViewById(viewId);
         int index = container.indexOfChild(oldView);
         container.removeView(oldView);
-        container.addView(newView,index);
+        container.addView(newView, index);
 
         newView.setVisibility(View.GONE);
     }
 
-    private ShowState mEmptyState,mProgressState,mErrorState,mContentState,mLoginState,mCollectState;
-    private Animation mAnimIn,mAnimOut;
+    private ShowState mEmptyState, mProgressState, mErrorState, mContentState, mLoginState,
+            mCollectState;
+    private Animation mAnimIn, mAnimOut;
 
-    private void initState(){
+    private void initStates() {
 
         mEmptyState = new EmptyState();
         mProgressState = new ProgressState();
         mErrorState = new ErrorState();
-        mEmptyState = new EmptyState();
+        mContentState = new ContentState();
 
         initState(mEmptyState);
         initState(mProgressState);
@@ -97,14 +115,13 @@ public class ProgressFragment extends Fragment{
 
     private ShowState mLastState = new NonState();
 
-    public void showContent(boolean animate){
-        if(mLastState == mContentState){
+    public void showContent(boolean animate) {
+        if (mLastState == mContentState) {
             return;
         }
-
         mContentState.show(animate);
         mLastState.dismiss(animate);
-        mLastState = mCollectState;
+        mLastState = mContentState;
     }
 
     public void showEmpty(boolean animate) {

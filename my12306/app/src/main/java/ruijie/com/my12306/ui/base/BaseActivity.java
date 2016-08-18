@@ -1,6 +1,7 @@
 package ruijie.com.my12306.ui.base;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -27,6 +28,8 @@ import ruijie.com.my12306.util.ThemeUtil;
  */
 
 public abstract class BaseActivity extends AppCompatActivity{
+
+    private Fragment oldFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,7 +137,26 @@ public abstract class BaseActivity extends AppCompatActivity{
         AppManager.getAppManager().finishActivity(this);
     }
 
-    public void showFragmentById(Fragment fragment){
-        getFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
+    public void showCurrentFragment(Fragment fragment){
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.show(fragment).commit();
+        oldFragment = fragment;
+    }
+
+    public void addFragment(Fragment fragment){
+        if(oldFragment==null)
+            oldFragment = fragment;
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.content, fragment).hide(oldFragment).commit();
+    }
+
+    public void transFragmentTo(Fragment to){
+        if(oldFragment!=to) {
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.hide(oldFragment);
+            fragmentTransaction.show(to);
+            fragmentTransaction.commit();
+            oldFragment = to;
+        }
     }
 }

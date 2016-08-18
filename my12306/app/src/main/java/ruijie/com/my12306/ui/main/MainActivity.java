@@ -15,6 +15,8 @@ import ruijie.com.my12306.R;
 import ruijie.com.my12306.ui.MyFragment;
 import ruijie.com.my12306.ui.base.BaseActivity;
 import ruijie.com.my12306.ui.booking.BookingFragment;
+import ruijie.com.my12306.ui.me.MeFragment;
+import ruijie.com.my12306.ui.search.SearchFragment;
 import ruijie.com.my12306.util.SnackbarUtils;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
@@ -51,7 +53,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
-        //getFragmentManager().beginTransaction().replace(R.id.content,new MyFragment()).commit();
+        addFragment(BookingFragment.getInstance());
+        addFragment(SearchFragment.getInstance());
+        addFragment(MeFragment.getInstance());
+        showCurrentFragment(BookingFragment.getInstance());
+
         BottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
             @Override
             public void onMenuItemSelect(@IdRes int itemId, int position) {
@@ -64,18 +70,17 @@ public class MainActivity extends BaseActivity implements MainContract.View {
             }
         });
         mainPresenter.attachView(this);
-        mainPresenter.onBottomNavClick(0);
     }
 
     @Override
     protected boolean isApplyStatusBarColor() {
-        return true;
+        return false;
     }
 
     @Override
     public void showFragment(Fragment fragment) {
         //SnackbarUtils.show(CoordinatorLayout,"jiajia",0,null);
-        getFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
+        transFragmentTo(fragment);
     }
 
 }
