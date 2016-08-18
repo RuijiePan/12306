@@ -45,7 +45,7 @@ public class MeFragment extends BaseFragment {
 
     @Override
     public void initUI(View view) {
-        showContent(true);
+
     }
 
     @Override

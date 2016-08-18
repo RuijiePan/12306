@@ -11,5 +11,6 @@ import ruijie.com.my12306.injector.moudel.ActivityMoudle;
  */
 @PerActivity @Component(dependencies = ApplicationComponent.class,modules = ActivityMoudle.class)
 public interface ActivityComponent {
+
     Activity proviceActivity();
 }

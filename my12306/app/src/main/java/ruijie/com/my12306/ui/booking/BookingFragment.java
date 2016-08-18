@@ -15,12 +15,10 @@ public class BookingFragment extends BaseFragment {
 
     public static BookingFragment instance;
     public static BookingFragment getInstance(){
-        if(instance==null) {
-            {
-                synchronized (BookingFragment.class){
-                    if (instance==null)
-                        instance = new BookingFragment();
-                }
+        if(instance==null){
+            synchronized (BookingFragment.class){
+                if (instance==null)
+                    instance = new BookingFragment();
             }
         }
         return instance;
@@ -46,7 +44,6 @@ public class BookingFragment extends BaseFragment {
 
     @Override
     public void initUI(View view) {
-        //showProgress(true);
         showContent(true);
     }
 

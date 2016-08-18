@@ -42,8 +42,6 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
     Button btnCommit;
     @Bind(R.id.root)
     LinearLayout root;
-
-    private LoginContact.View mLoginView;
     private MaterialDialog dialog;
 
     @Override

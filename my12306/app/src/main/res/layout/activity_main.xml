@@ -8,6 +8,13 @@
 
     <include layout="@layout/empty_layout" />
 
+    <!--<ruijie.com.my12306.widget.NoScollerViewPager
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ruijie.com.my12306.widget.NoScollerViewPager>-->
+
     <it.sephiroth.android.library.bottomnavigation.BottomNavigation
         android:id="@+id/BottomNavigation"
         android:layout_width="match_parent"

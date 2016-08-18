@@ -8,6 +8,7 @@ import android.util.Log;
 import javax.inject.Inject;
 
 import ruijie.com.my12306.ui.booking.BookingFragment;
+import ruijie.com.my12306.ui.login.LoginFragment;
 import ruijie.com.my12306.ui.me.MeFragment;
 import ruijie.com.my12306.ui.search.SearchFragment;
 import rx.Subscription;
@@ -23,6 +24,7 @@ public class MainPresenter implements MainContract.Presenter {
     public static final int ME = 2;
     private MainContract.View mMainView;
     private Context context;
+    private boolean isLogin = false;
 
     @Inject
     public MainPresenter(Context context){
@@ -32,12 +34,14 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onBottomNavClick(int position) {
         Fragment mFragment = null;
-        //Log.w("haha",position+"");
         switch (position){
             case BOOKING:
                 mFragment = BookingFragment.getInstance();
                 break;
             case SEARCH:
+                if(!isLogin)
+                mFragment = LoginFragment.getInstance();
+                else
                 mFragment = SearchFragment.getInstance();
                 break;
             case ME:

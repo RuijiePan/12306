@@ -15,6 +15,10 @@ import ruijie.com.my12306.injector.moudel.ApiMoudle;
 import ruijie.com.my12306.injector.moudel.ApplicationMoudle;
 import ruijie.com.my12306.injector.moudel.DBModule;
 import ruijie.com.my12306.ui.base.BaseActivity;
+import ruijie.com.my12306.ui.booking.BookingFragment;
+import ruijie.com.my12306.ui.login.LoginFragment;
+import ruijie.com.my12306.ui.me.MeFragment;
+import ruijie.com.my12306.ui.search.SearchFragment;
 
 /**
  * Created by prj on 2016/8/15.
@@ -35,4 +39,5 @@ public interface ApplicationComponent {
     void inject(MyApplication application);
 
     void inject(BaseActivity mBaseActivity);
+
 }
