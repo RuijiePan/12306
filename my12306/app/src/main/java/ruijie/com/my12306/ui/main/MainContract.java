@@ -1,7 +1,8 @@
 package ruijie.com.my12306.ui.main;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
+import ruijie.com.my12306.ui.login.LoginContact;
 import ruijie.com.my12306.ui.base.BasePresenter;
 import ruijie.com.my12306.ui.base.BaseView;
 import ruijie.com.my12306.ui.login.LoginContact;

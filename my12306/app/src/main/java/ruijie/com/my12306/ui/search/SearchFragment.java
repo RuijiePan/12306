@@ -4,18 +4,23 @@ import android.os.Bundle;
 import android.view.View;
 
 import ruijie.com.my12306.R;
+import ruijie.com.my12306.ui.base.BaseFragment;
 import ruijie.com.my12306.ui.base.BaseLazyLoadFragment;
 
 /**
  * Created by Administrator on 2016/8/18.
  */
 
-public class SearchFragment extends BaseLazyLoadFragment{
+public class SearchFragment extends BaseFragment{
 
     public static SearchFragment instance;
     public static SearchFragment getInstance(){
-        if(instance==null)
-            return new SearchFragment();
+        if(instance==null){
+            synchronized (SearchFragment.class){
+                if (instance==null)
+                    instance = new SearchFragment();
+            }
+        }
         return instance;
     }
 

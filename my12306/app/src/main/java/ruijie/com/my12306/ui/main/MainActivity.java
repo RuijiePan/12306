@@ -1,9 +1,10 @@
 package ruijie.com.my12306.ui.main;
-
-import android.app.Fragment;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 
 import javax.inject.Inject;
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Bind(R.id.CoordinatorLayout)
     android.support.design.widget.CoordinatorLayout CoordinatorLayout;
     private MainComponent mainComponent;
+    private Fragment oldFragment;
 
     @Override
     protected int initContentView() {
@@ -53,10 +55,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
-        addFragment(BookingFragment.getInstance());
-        addFragment(SearchFragment.getInstance());
-        addFragment(MeFragment.getInstance());
-        showCurrentFragment(BookingFragment.getInstance());
+        initFragment();
+        //transFragmentTo(BookingFragment.getInstance());
 
         BottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
             @Override
@@ -79,8 +79,21 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void showFragment(Fragment fragment) {
-        //SnackbarUtils.show(CoordinatorLayout,"jiajia",0,null);
-        transFragmentTo(fragment);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if(fragment!=oldFragment) {
+            ft.hide(oldFragment).show(fragment).commit();
+            oldFragment = fragment;
+        }
     }
 
+    public void initFragment(){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.content,BookingFragment.getInstance())
+                .add(R.id.content,SearchFragment.getInstance())
+                .add(R.id.content,MeFragment.getInstance())
+                .hide(SearchFragment.getInstance())
+                .hide(MeFragment.getInstance())
+                .commit();
+        oldFragment = BookingFragment.getInstance();
+    }
 }

@@ -4,18 +4,23 @@ import android.os.Bundle;
 import android.view.View;
 
 import ruijie.com.my12306.R;
+import ruijie.com.my12306.ui.base.BaseFragment;
 import ruijie.com.my12306.ui.base.BaseLazyLoadFragment;
 
 /**
  * Created by Administrator on 2016/8/18.
  */
 
-public class MeFragment extends BaseLazyLoadFragment {
+public class MeFragment extends BaseFragment {
 
     public static MeFragment instance;
     public static MeFragment getInstance(){
-        if(instance==null)
-            return new MeFragment();
+        if(instance==null) {
+            synchronized (MeFragment.class){
+                if (instance==null)
+                    instance = new MeFragment();
+            }
+        }
         return instance;
     }
 

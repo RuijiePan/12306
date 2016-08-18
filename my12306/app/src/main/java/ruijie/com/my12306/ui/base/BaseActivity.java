@@ -15,7 +15,6 @@ import android.view.WindowManager;
 import ruijie.com.my12306.AppManager;
 import ruijie.com.my12306.MyApplication;
 import ruijie.com.my12306.R;
-import ruijie.com.my12306.injector.component.ActivityComponent;
 import ruijie.com.my12306.injector.component.ApplicationComponent;
 import ruijie.com.my12306.injector.moudel.ActivityMoudle;
 import ruijie.com.my12306.util.ResourceUtil;
@@ -28,8 +27,6 @@ import ruijie.com.my12306.util.ThemeUtil;
  */
 
 public abstract class BaseActivity extends AppCompatActivity{
-
-    private Fragment oldFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,26 +134,9 @@ public abstract class BaseActivity extends AppCompatActivity{
         AppManager.getAppManager().finishActivity(this);
     }
 
-    public void showCurrentFragment(Fragment fragment){
+    public void transFragmentTo(Fragment from,Fragment to){
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.show(fragment).commit();
-        oldFragment = fragment;
+        fragmentTransaction.hide(from).show(to).commit();
     }
 
-    public void addFragment(Fragment fragment){
-        if(oldFragment==null)
-            oldFragment = fragment;
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.content, fragment).hide(oldFragment).commit();
-    }
-
-    public void transFragmentTo(Fragment to){
-        if(oldFragment!=to) {
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.hide(oldFragment);
-            fragmentTransaction.show(to);
-            fragmentTransaction.commit();
-            oldFragment = to;
-        }
-    }
 }
