@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/content"
+<ruijie.com.my12306.util.ReboundScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="?actionBarSize"
     >
 
-    <TextView
-        android:text="me"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</FrameLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/margin_top_30"
+            style="@style/linearlayout_style">
+            <Button
+                android:id="@+id/bt_login"
+                android:text="@string/bt_login"
+                style="@style/button_ripple_style"/>
+        </LinearLayout>
+
+        <include layout="@layout/cutting_line"/>
+
+        <LinearLayout
+            style="@style/linearlayout_style">
+            <Button
+                android:id="@+id/bt_register"
+                android:text="@string/bt_register"
+                style="@style/button_ripple_style"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/margin_top_30"
+            style="@style/linearlayout_style">
+            <Button
+                android:id="@+id/bt_guide"
+                android:text="@string/guide"
+                style="@style/button_ripple_style"/>
+        </LinearLayout>
+
+        <include layout="@layout/cutting_line"/>
+
+        <LinearLayout
+            style="@style/linearlayout_style">
+            <Button
+                android:id="@+id/bt_service"
+                android:text="@string/service"
+                style="@style/button_ripple_style"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</ruijie.com.my12306.util.ReboundScrollView>

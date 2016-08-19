@@ -31,4 +31,32 @@
         <!-- menu item inactive color -->
         <attr name="bbn_itemColorInactive" format="color" />
     </declare-styleable>
+
+    <style name="linearlayout_style">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="button_ripple_style">
+        <item name="android:background">@drawable/item_select_clickable</item>
+        <item name="android:drawableRight">@drawable/ic_chevron_right</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingLeft">@dimen/margin_left_30</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="cutting_line_1dp">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/selectable_item_background_general_light_accent</item>
+    </style>
+
+    <style name="cutting_line_1dp_left">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/md_white</item>
+        <item name="android:layout_width">@dimen/margin_left_30</item>
+    </style>
 </resources>

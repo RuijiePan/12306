@@ -5,4 +5,8 @@
     <string name="ticket_booking">车票预订</string>
     <string name="ticket_search">订单查询</string>
     <string name="_12306">我的12306</string>
+    <string name="service">温馨服务</string>
+    <string name="guide">出行导向</string>
+    <string name="bt_login">登录</string>
+    <string name="bt_register">注册</string>
 </resources>
