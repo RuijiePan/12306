@@ -136,8 +136,7 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             BottomNavigation.setSelectedIndex(MainPresenter.ME,false);
-            showFragment(MeFragment.getInstance());
-            showTitle("我的12306",false);
+            mainPresenter.onBottomNavClick(MainPresenter.ME);
             return true;
         }
         return super.onOptionsItemSelected(item);

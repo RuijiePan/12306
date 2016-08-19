@@ -20,7 +20,7 @@ public interface LoginContact {
 
         void loginSuccess();
 
-        void loginFailure();
+        void loginFailure(String error);
     }
 
     interface Presenter extends BasePresenter<View>{

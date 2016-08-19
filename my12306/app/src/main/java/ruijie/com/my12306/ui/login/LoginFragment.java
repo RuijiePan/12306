@@ -52,7 +52,7 @@ public class LoginFragment extends BaseFragment implements LoginContact.View{
     TextInputLayout textInputPassword;
     @Bind(R.id.btnCommit)
     Button btnCommit;
-    LinearLayout ll;
+    View root;
     public static LoginFragment instance;
     private MaterialDialog dialog;
 
@@ -88,7 +88,7 @@ public class LoginFragment extends BaseFragment implements LoginContact.View{
     @Override
     public void initUI(View view) {
         ButterKnife.bind(this, view);
-        ll = (LinearLayout) view.findViewById(R.id.ll);
+        root = view;
         btnCommit.setOnClickListener(view1 ->
                 mPresenter.login(etUserName.getText().toString().trim()
                         ,etPassWord.getText().toString().trim()));
@@ -123,12 +123,12 @@ public class LoginFragment extends BaseFragment implements LoginContact.View{
 
     @Override
     public void showUserNameError(String error) {
-        SnackbarUtils.show(ll, "用户名错误", 0, null);
+        SnackbarUtils.show(root, error, 0, null);
     }
 
     @Override
     public void showPasswordError(String error) {
-        SnackbarUtils.show(ll, "密码错误", 0, null);
+        SnackbarUtils.show(root, error, 0, null);
     }
 
     @Override
@@ -137,8 +137,8 @@ public class LoginFragment extends BaseFragment implements LoginContact.View{
     }
 
     @Override
-    public void loginFailure() {
-        //SnackbarUtils.show(ll,"登录失败", 0, null);
+    public void loginFailure(String error) {
+        SnackbarUtils.show(root,"登录失败", 0, null);
     }
 
     @Override

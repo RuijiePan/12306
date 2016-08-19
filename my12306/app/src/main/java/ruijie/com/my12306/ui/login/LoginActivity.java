@@ -113,7 +113,7 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
     }
 
     @Override
-    public void loginFailure() {
+    public void loginFailure(String error) {
         SnackbarUtils.show(root, "登录失败", 0, null);
     }
 

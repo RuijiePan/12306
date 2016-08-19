@@ -11,6 +11,7 @@ import ruijie.com.my12306.api.login.LoginApi;
 import ruijie.com.my12306.bean.loginBean;
 import ruijie.com.my12306.bean.userBean;
 import ruijie.com.my12306.injector.PerActivity;
+import ruijie.com.my12306.util.TextUtil;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -35,11 +36,11 @@ public class LoginPresenter implements LoginContact.Presenter{
 
     @Override
     public void login(String username, String password) {
-        if(TextUtils.isEmpty(username)){
+        if(TextUtil.isEmpty(username)){
             mLoginView.showUserNameError("请输入用户名");
             return;
         }
-        if(TextUtils.isEmpty(password)){
+        if(TextUtil.isEmpty(password)){
             mLoginView.showPasswordError("请输入密码");
             return;
         }
@@ -57,12 +58,12 @@ public class LoginPresenter implements LoginContact.Presenter{
                         mLoginView.loginSuccess();
                     }else {
                         mLoginView.dimissLoading();
-                        mLoginView.loginFailure();
+                        mLoginView.loginFailure("登录失败");
                     }
                 }, throwable -> {
                     throwable.printStackTrace();
                     mLoginView.dimissLoading();
-                    mLoginView.loginFailure();
+                    mLoginView.loginFailure(throwable+"");
                 });
 
     }
