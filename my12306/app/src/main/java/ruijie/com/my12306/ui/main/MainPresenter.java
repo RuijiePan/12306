@@ -37,15 +37,21 @@ public class MainPresenter implements MainContract.Presenter {
         switch (position){
             case BOOKING:
                 mFragment = BookingFragment.getInstance();
+                mMainView.showTitle("车票预订",false);
                 break;
             case SEARCH:
-                if(!isLogin)
-                mFragment = LoginFragment.getInstance();
-                else
-                mFragment = SearchFragment.getInstance();
+                if(!isLogin) {
+                    mFragment = LoginFragment.getInstance();
+                    mMainView.showTitle("登录12306",true);
+                }
+                else {
+                    mFragment = SearchFragment.getInstance();
+                    mMainView.showTitle("订单查询",false);
+                }
                 break;
             case ME:
                 mFragment = MeFragment.getInstance();
+                mMainView.showTitle("我的12306",false);
                 break;
         }
         if(mFragment!=null){

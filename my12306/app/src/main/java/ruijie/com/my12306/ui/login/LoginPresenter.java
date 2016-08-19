@@ -55,11 +55,14 @@ public class LoginPresenter implements LoginContact.Presenter{
                     if (userBean != null) {
                         mLoginView.dimissLoading();
                         mLoginView.loginSuccess();
+                    }else {
+                        mLoginView.dimissLoading();
+                        mLoginView.loginFailure();
                     }
                 }, throwable -> {
                     throwable.printStackTrace();
                     mLoginView.dimissLoading();
-                    mLoginView.loginFailure(throwable+"");
+                    mLoginView.loginFailure();
                 });
 
     }

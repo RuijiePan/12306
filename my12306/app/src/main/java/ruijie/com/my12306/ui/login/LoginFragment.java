@@ -1,16 +1,24 @@
 package ruijie.com.my12306.ui.login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 
 import javax.inject.Inject;
 
@@ -26,16 +34,14 @@ import ruijie.com.my12306.util.SnackbarUtils;
  * Created by prj on 2016/8/18.
  */
 
-public class LoginFragment extends BaseFragment implements LoginContact.View {
+public class LoginFragment extends BaseFragment implements LoginContact.View{
 
     @Inject
     LoginPresenter mPresenter;
     @Inject
+    Context context;
+    @Inject
     MainActivity mainActivity;
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
-    @Bind(R.id.AppBarLayout)
-    android.support.design.widget.AppBarLayout AppBarLayout;
     @Bind(R.id.etUserName)
     EditText etUserName;
     @Bind(R.id.textInputUserName)
@@ -48,6 +54,7 @@ public class LoginFragment extends BaseFragment implements LoginContact.View {
     Button btnCommit;
     LinearLayout ll;
     public static LoginFragment instance;
+    private MaterialDialog dialog;
 
     public static LoginFragment getInstance() {
         if (instance == null) {
@@ -82,6 +89,15 @@ public class LoginFragment extends BaseFragment implements LoginContact.View {
     public void initUI(View view) {
         ButterKnife.bind(this, view);
         ll = (LinearLayout) view.findViewById(R.id.ll);
+        btnCommit.setOnClickListener(view1 ->
+                mPresenter.login(etUserName.getText().toString().trim()
+                        ,etPassWord.getText().toString().trim()));
+        dialog = new MaterialDialog.Builder(getContext())
+                .content("正在登录")
+                .progress(true, 0)
+                .build();
+        etUserName.addTextChangedListener(new MTextWatcher(textInputUserName));
+        etPassWord.addTextChangedListener(new MTextWatcher(textInputPassword));
         showContent(true);
         mPresenter.attachView(this);
     }
@@ -93,12 +109,16 @@ public class LoginFragment extends BaseFragment implements LoginContact.View {
 
     @Override
     public void showLoading() {
-        showProgress(true);
+        //showProgress(true);
+        if (!mainActivity.isFinishing() && !dialog.isShowing()) {
+            dialog.show();
+        }
     }
 
     @Override
     public void dimissLoading() {
-        showProgress(false);
+        if (!mainActivity.isFinishing() && dialog.isShowing())
+            dialog.dismiss();
     }
 
     @Override
@@ -117,8 +137,8 @@ public class LoginFragment extends BaseFragment implements LoginContact.View {
     }
 
     @Override
-    public void loginFailure(String msg) {
-        SnackbarUtils.show(ll, msg, 0, null);
+    public void loginFailure() {
+        //SnackbarUtils.show(ll,"登录失败", 0, null);
     }
 
     @Override
@@ -126,5 +146,26 @@ public class LoginFragment extends BaseFragment implements LoginContact.View {
         super.onDestroyView();
         mPresenter.detachView();
         ButterKnife.unbind(this);
+    }
+
+    class MTextWatcher implements TextWatcher {
+
+        TextInputLayout textInputLayout;
+
+        public MTextWatcher(TextInputLayout textInputLayout) {
+            this.textInputLayout = textInputLayout;
+        }
+
+        @Override public void afterTextChanged(Editable arg0) {
+
+        }
+
+        @Override public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+        }
+
+        @Override public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            textInputLayout.setErrorEnabled(false);
+        }
     }
 }

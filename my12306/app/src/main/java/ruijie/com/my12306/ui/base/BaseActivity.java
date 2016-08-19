@@ -22,6 +22,8 @@ import ruijie.com.my12306.util.ResourceUtil;
 import ruijie.com.my12306.util.SettingPrefUtil;
 import ruijie.com.my12306.util.StatusBarUtil;
 import ruijie.com.my12306.util.ThemeUtil;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by Administrator on 2016/8/16.
@@ -135,6 +137,9 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override protected void onDestroy() {
         super.onDestroy();
         AppManager.getAppManager().finishActivity(this);
+        /*if(rxSubscription!=null&&!rxSubscription.isUnsubscribed()){
+            rxSubscription.unsubscribe();
+        }*/
     }
 
     public void showCurrentFragment(Fragment fragment){
@@ -159,4 +164,5 @@ public abstract class BaseActivity extends AppCompatActivity{
             oldFragment = to;
         }
     }
+
 }

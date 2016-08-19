@@ -2,15 +2,12 @@ package ruijie.com.my12306.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.LinearLayout;
 
 import javax.inject.Inject;
 
@@ -18,17 +15,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import ruijie.com.my12306.R;
+import ruijie.com.my12306.event.toolbarEvent;
 import ruijie.com.my12306.injector.HasComponent;
-import ruijie.com.my12306.ui.base.BaseActivity;
-import ruijie.com.my12306.ui.base.BaseFragment;
-import ruijie.com.my12306.ui.base.BaseFragmentPagerAdapter;
+import ruijie.com.my12306.ui.base.BusActivity;
 import ruijie.com.my12306.ui.booking.BookingFragment;
 import ruijie.com.my12306.ui.login.LoginFragment;
 import ruijie.com.my12306.ui.me.MeFragment;
 import ruijie.com.my12306.ui.search.SearchFragment;
-import ruijie.com.my12306.widget.NoScollerViewPager;
+import ruijie.com.my12306.util.RxBus;
 
-public class MainActivity extends BaseActivity implements MainContract.View, HasComponent {
+public class MainActivity extends BusActivity implements MainContract.View, HasComponent {
 
     @Bind(R.id.BottomNavigation)
     it.sephiroth.android.library.bottomnavigation.BottomNavigation BottomNavigation;
@@ -36,6 +32,12 @@ public class MainActivity extends BaseActivity implements MainContract.View, Has
     MainPresenter mainPresenter;
     @Bind(R.id.CoordinatorLayout)
     android.support.design.widget.CoordinatorLayout CoordinatorLayout;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.AppBarLayout)
+    android.support.design.widget.AppBarLayout AppBarLayout;
+    @Bind(R.id.content)
+    LinearLayout content;
     /*@Bind(R.id.viewPager)
     NoScollerViewPager viewPager;*/
     private MainComponent mainComponent;
@@ -71,8 +73,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Has
         baseFragmentPagerAdapter = new BaseFragmentPagerAdapter(getSupportFragmentManager(),fragmentList);
         viewPager.setAdapter(baseFragmentPagerAdapter);*/
         initFragment();
-
-        //transFragmentTo(BookingFragment.getInstance());
+        setSupportActionBar(toolbar);
 
         BottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
             @Override
@@ -85,12 +86,13 @@ public class MainActivity extends BaseActivity implements MainContract.View, Has
 
             }
         });
+
         mainPresenter.attachView(this);
     }
 
     @Override
     protected boolean isApplyStatusBarColor() {
-        return false;
+        return true;
     }
 
     @Override
@@ -100,6 +102,16 @@ public class MainActivity extends BaseActivity implements MainContract.View, Has
             ft.hide(oldFragment).show(fragment).commit();
             oldFragment = fragment;
         }
+    }
+
+    @Override
+    public void showTitle(String title,boolean isShowBack) {
+        if (isShowBack){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }else {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+        toolbar.setTitle(title);
     }
 
     public void initFragment() {
@@ -120,4 +132,14 @@ public class MainActivity extends BaseActivity implements MainContract.View, Has
         return mainComponent;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            BottomNavigation.setSelectedIndex(MainPresenter.ME,false);
+            showFragment(MeFragment.getInstance());
+            showTitle("我的12306",false);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

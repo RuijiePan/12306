@@ -4,10 +4,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="?actionBarSize"
     android:id="@+id/ll"
     >
-
-  <include layout="@layout/base_toolbar_layout"/>
 
   <android.support.design.widget.TextInputLayout
       android:id="@+id/textInputUserName"
@@ -44,21 +43,6 @@
         />
   </android.support.design.widget.TextInputLayout>
 
-  <android.support.design.widget.TextInputLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dip"
-      >
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="密码"
-        android:inputType="textPassword"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="16sp"
-        />
-  </android.support.design.widget.TextInputLayout>
   <android.support.v7.widget.ButtonBarLayout
       android:gravity="center"
       android:layout_marginTop="@dimen/margin_top"

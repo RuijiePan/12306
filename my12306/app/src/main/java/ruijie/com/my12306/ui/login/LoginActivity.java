@@ -28,8 +28,8 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
 
     @Inject
     LoginPresenter mPresenter;
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+/*    @Bind(R.id.toolbar)
+    Toolbar toolbar;*/
     @Bind(R.id.etUserName)
     EditText etUserName;
     @Bind(R.id.textInputUserName)
@@ -40,7 +40,7 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
     TextInputLayout textInputPassword;
     @Bind(R.id.btnCommit)
     Button btnCommit;
-    @Bind(R.id.root)
+    //@Bind(R.id.root)
     LinearLayout root;
     private MaterialDialog dialog;
 
@@ -67,13 +67,14 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
     public void initUiAndListener() {
         ButterKnife.bind(this);
         mPresenter.attachView(this);
-        initToolBar(toolbar);
+        //initToolBar(toolbar);
         setTitle("登录");
         dialog = new MaterialDialog.Builder(this)
                 .title("提示")
                 .content("正在登录")
                 .progress(true, 0)
                 .build();
+        root = (LinearLayout) findViewById(R.id.root);
     }
 
     @Override
@@ -112,7 +113,7 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
     }
 
     @Override
-    public void loginFailure(String msg) {
+    public void loginFailure() {
         SnackbarUtils.show(root, "登录失败", 0, null);
     }
 
