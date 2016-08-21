@@ -1,11 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/md_white"
+    android:orientation="vertical">
 
-    <ProgressBar
-        android:layout_gravity="center|center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</FrameLayout>
+    <android.support.v7.widget.CardView
+        style="@style/Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            style="@style/linearlayout_style">
+            <ruijie.com.my12306.widget.AddressSelectLayout
+                app:leftText="北京"
+                app:rightText="上海"
+                app:centerTextColor="?colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ruijie.com.my12306.widget.AddressSelectLayout>
+
+            <include layout="@layout/cutting_line_margin20"/>
+
+            <LinearLayout
+                style="@style/linearlayout_style_horizontal">
+
+                <Button
+                    android:text="@string/start_data"
+                    style="@style/button_unclickable" />
+
+                <Button
+                    android:text="2016-5-7"
+                    style="@style/button_clickable" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/linearlayout_style_horizontal">
+                <Button
+                    android:text="@string/start_time"
+                    style="@style/button_unclickable" />
+
+                <Button
+                    android:text="14:00"
+                    style="@style/button_clickable" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/linearlayout_style_horizontal">
+                <Button
+                    android:text="@string/class_seat"
+                    style="@style/button_unclickable" />
+
+                <Button
+                    android:text="VIP座"
+                    style="@style/button_clickable" />
+            </LinearLayout>
+
+            <include layout="@layout/cutting_line_margin20"/>
+
+            <ruijie.com.my12306.widget.FlowLayout
+                android:id="@+id/flowlayout"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ruijie.com.my12306.widget.FlowLayout>
+
+            <include layout="@layout/cutting_line_margin20"/>
+
+            <ruijie.com.my12306.widget.FlowLayout
+                android:id="@+id/fl_customer"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ruijie.com.my12306.widget.FlowLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <ruijie.com.my12306.util.LoadMoreRecyclerView
+            android:id="@+id/recyclerView"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+</LinearLayout>
+
+

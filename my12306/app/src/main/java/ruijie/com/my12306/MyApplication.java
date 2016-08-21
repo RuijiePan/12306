@@ -42,12 +42,7 @@ public class MyApplication extends Application {
         super.onCreate();
         initComponent();
         initUser();
-        FileDownloader.init(this, new FileDownloadHelper.OkHttpClientCustomMaker() {
-            @Override
-            public OkHttpClient customMake() {
-                return mOkHttpClient;
-            }
-        });
+        FileDownloader.init(this, () -> mOkHttpClient);
         initFrescoConfig();
     }
 

@@ -1,7 +1,9 @@
 <resources>
   <!-- Default screen margins, per the Android Design guidelines. -->
 
-
+  <dimen name="text_size_35">35.0sp</dimen>
+  <dimen name="text_size_30">30.0sp</dimen>
+  <dimen name="text_size_25">25.0sp</dimen>
   <dimen name="text_size_23">23.0sp</dimen>
   <dimen name="text_size_22">22.0sp</dimen>
   <dimen name="text_size_21">21.0sp</dimen>
@@ -21,7 +23,12 @@
 
   <integer name="preference_fragment_scrollbarStyle">0x02000000</integer>
 
+  <dimen name="bt_margin_bottom_min">7dp</dimen>
   <dimen name="margin_top">20dp</dimen>
-  <dimen name="margin_left_30">30dp</dimen>
-  <dimen name="margin_top_30">30dp</dimen>
+  <dimen name="margin_left_30">20dp</dimen>
+  <dimen name="margin_top_30">20dp</dimen>
+  <dimen name="margin_20">20dp</dimen>
+  <dimen name="card_corner_radius">2dp</dimen>
+  <dimen name="card_elevation">3dp</dimen>
+  <dimen name="item_content_padding">9dp</dimen>
 </resources>

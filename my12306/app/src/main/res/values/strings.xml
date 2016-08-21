@@ -9,4 +9,15 @@
     <string name="guide">出行导向</string>
     <string name="bt_login">登录</string>
     <string name="bt_register">注册</string>
+    <string name="travel">旅游休闲</string>
+    <string name="update">基础数据更新</string>
+    <string name="notification">系统通知</string>
+    <string name="about">关于</string>
+    <string name="start_time">出发时间</string>
+    <string name="start_data">出发日期</string>
+    <string name="class_seat">席别</string>
+    <string name="gravity_left">left</string>
+    <string name="gravity_center">center</string>
+    <string name="gravity_right">right</string>
+    <string name="add">⊕乘客</string>
 </resources>

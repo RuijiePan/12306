@@ -1,54 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ruijie.com.my12306.util.ReboundScrollView
+    xmlns:app="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?actionBarSize"
-    >
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:id="@+id/root"
+    android:layout_marginTop="?actionBarSize">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_marginTop="@dimen/margin_top_30"
-            style="@style/linearlayout_style">
+        <LinearLayout style="@style/linearlayout_style">
+
             <Button
                 android:id="@+id/bt_login"
-                android:text="@string/bt_login"
-                style="@style/button_ripple_style"/>
+                style="@style/button_ripple_style_margin"
+                android:text="@string/bt_login" />
+
         </LinearLayout>
 
-        <include layout="@layout/cutting_line"/>
+        <include layout="@layout/cutting_line" />
 
-        <LinearLayout
-            style="@style/linearlayout_style">
-            <Button
-                android:id="@+id/bt_register"
-                android:text="@string/bt_register"
-                style="@style/button_ripple_style"/>
-        </LinearLayout>
+        <Button
+            android:id="@+id/bt_register"
+            style="@style/button_ripple_style"
+            android:text="@string/bt_register" />
 
+        <LinearLayout style="@style/linearlayout_style">
 
-        <LinearLayout
-            android:layout_marginTop="@dimen/margin_top_30"
-            style="@style/linearlayout_style">
             <Button
                 android:id="@+id/bt_guide"
-                android:text="@string/guide"
-                style="@style/button_ripple_style"/>
+                style="@style/button_ripple_style_margin"
+                android:text="@string/guide" />
         </LinearLayout>
 
-        <include layout="@layout/cutting_line"/>
+        <include layout="@layout/cutting_line" />
 
-        <LinearLayout
-            style="@style/linearlayout_style">
+        <Button
+            android:id="@+id/bt_service"
+            style="@style/button_ripple_style"
+            android:text="@string/service" />
+
+        <Button
+            android:id="@+id/bt_travel"
+            style="@style/button_ripple_style_margin"
+            android:text="@string/travel" />
+
+        <LinearLayout style="@style/linearlayout_style">
+
             <Button
-                android:id="@+id/bt_service"
-                android:text="@string/service"
-                style="@style/button_ripple_style"/>
+                android:id="@+id/bt_update"
+                style="@style/button_ripple_style_margin"
+                android:text="@string/update" />
         </LinearLayout>
+
+        <include layout="@layout/cutting_line" />
+
+        <LinearLayout style="@style/linearlayout_style">
+
+            <Button
+                android:id="@+id/bt_notification"
+                style="@style/button_ripple_style"
+                android:text="@string/notification" />
+        </LinearLayout>
+
+        <include layout="@layout/cutting_line" />
+
+        <Button
+            android:id="@+id/bt_about"
+            android:layout_marginBottom="@dimen/bt_margin_bottom_min"
+            style="@style/button_ripple_style"
+            android:text="@string/about" />
     </LinearLayout>
 
 </ruijie.com.my12306.util.ReboundScrollView>

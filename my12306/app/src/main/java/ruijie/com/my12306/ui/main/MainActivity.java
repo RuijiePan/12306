@@ -79,6 +79,7 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
             @Override
             public void onMenuItemSelect(@IdRes int itemId, int position) {
                 mainPresenter.onBottomNavClick(position);
+
             }
 
             @Override

@@ -38,6 +38,12 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="linearlayout_style_horizontal">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="button_ripple_style">
         <item name="android:background">@drawable/item_select_clickable</item>
         <item name="android:drawableRight">@drawable/ic_chevron_right</item>
@@ -45,6 +51,10 @@
         <item name="android:paddingLeft">@dimen/margin_left_30</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="button_ripple_style_margin" parent="button_ripple_style">
+        <item name="android:layout_marginTop">@dimen/margin_top_30</item>
     </style>
 
     <style name="cutting_line_1dp">
@@ -59,4 +69,33 @@
         <item name="android:background">@color/md_white</item>
         <item name="android:layout_width">@dimen/margin_left_30</item>
     </style>
+
+    <style name="ToolBarTitleText" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/md_white</item>
+        <item name="android:textSize">20sp</item>
+        <!--<item name="android:textStyle">bold</item>-->
+    </style>
+
+    <style name="transparentText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor" >#00000000</item>
+    </style>
+
+    <style name="Card" parent="CardView">
+        <item name="contentPadding">0dp</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+    </style>
+
+    <style name="button_clickable" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/item_select_clickable</item>
+    </style>
+
+    <style name="button_unclickable" parent="button_clickable">
+        <item name="android:clickable">false</item>
+    </style>
+
 </resources>

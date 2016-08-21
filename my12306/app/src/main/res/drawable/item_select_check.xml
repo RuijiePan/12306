@@ -5,14 +5,20 @@
     android:exitFadeDuration="@android:integer/config_mediumAnimTime">
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/md_cyan_500"/>
+            <solid android:color="@color/md_white"/>
+            <corners android:radius="@dimen/card_corner_radius"/>
         </shape>
     </item>
     <item android:state_focused="true">
         <shape>
-            <solid android:color="@color/md_cyan_500"/>
-            <stroke android:color="@color/md_cyan_700"/>
+            <solid android:color="@color/md_white"/>
+            <corners android:radius="@dimen/card_corner_radius"/>
         </shape>
     </item>
-    <item android:drawable="@color/md_white"/>
+    <item android:drawable="@color/md_cyan_500">
+        <shape>
+            <corners android:radius="@dimen/card_corner_radius"/>
+        </shape>
+    </item>
 </selector>
+

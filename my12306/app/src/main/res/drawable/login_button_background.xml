@@ -6,15 +6,19 @@
   <item android:state_pressed="true">
     <shape>
       <corners android:radius="2dp"/>
-      <solid android:color="@color/colorPrimary"/>
+      <solid android:color="@color/md_cyan_500"/>
     </shape>
   </item>
   <item android:state_focused="true">
     <shape>
       <corners android:radius="2dp"/>
-      <solid android:color="@color/colorPrimary"/>
-      <stroke android:color="@color/colorAccent"/>
+      <solid android:color="@color/md_cyan_500"/>
+      <stroke android:color="@color/md_cyan_700"/>
     </shape>
   </item>
-  <item android:drawable="@color/colorPrimary"/>
+  <item android:drawable="@color/md_cyan_500">
+    <shape>
+      <corners android:radius="2dp"/>
+    </shape>
+  </item>
 </selector>

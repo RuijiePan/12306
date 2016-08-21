@@ -11,4 +11,8 @@ public class TextUtil {
     public static boolean isEmpty(String s){
         return s == null || TextUtils.isEmpty(s);
     }
+
+    public static String getText(String s){
+        return s==null?"":s;
+    }
 }

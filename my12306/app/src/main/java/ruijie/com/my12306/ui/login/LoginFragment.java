@@ -93,7 +93,7 @@ public class LoginFragment extends BaseFragment implements LoginContact.View{
                 mPresenter.login(etUserName.getText().toString().trim()
                         ,etPassWord.getText().toString().trim()));
         dialog = new MaterialDialog.Builder(getContext())
-                .content("正在登录")
+                .content("正在登录...")
                 .progress(true, 0)
                 .build();
         etUserName.addTextChangedListener(new MTextWatcher(textInputUserName));
