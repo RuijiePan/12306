@@ -1,6 +1,8 @@
 package ruijie.com.my12306.util;
 
 import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Created by Administrator on 2016/8/19.
@@ -14,5 +16,13 @@ public class TextUtil {
 
     public static String getText(String s){
         return s==null?"":s;
+    }
+
+    public static String getText(Button bt){
+        return bt.getText().toString();
+    }
+
+    public static String getText(TextView tv){
+        return TextUtil.getText(tv.getText().toString());
     }
 }

@@ -23,11 +23,19 @@
 
   <integer name="preference_fragment_scrollbarStyle">0x02000000</integer>
 
+  <dimen name="margin_5">5dp</dimen>
+  <dimen name="margin_10">10dp</dimen>
+  <dimen name="margin_20">20dp</dimen>
+  <dimen name="dp_5">5dp</dimen>
+  <dimen name="dp_10">10dp</dimen>
+  <dimen name="dp_15">15dp</dimen>
+  <dimen name="dp_20">20dp</dimen>
+  <dimen name="dp_30">30dp</dimen>
+  <dimen name="button_margin">5dp</dimen>
   <dimen name="bt_margin_bottom_min">7dp</dimen>
   <dimen name="margin_top">20dp</dimen>
   <dimen name="margin_left_30">20dp</dimen>
   <dimen name="margin_top_30">20dp</dimen>
-  <dimen name="margin_20">20dp</dimen>
   <dimen name="card_corner_radius">2dp</dimen>
   <dimen name="card_elevation">3dp</dimen>
   <dimen name="item_content_padding">9dp</dimen>

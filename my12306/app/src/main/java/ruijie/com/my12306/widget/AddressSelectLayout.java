@@ -44,7 +44,7 @@ public class AddressSelectLayout extends LinearLayout{
     private Drawable centerBcakground;
 
     private final int DEFAULT_COLOR = 0xff000000;
-    private final float DEFAULT_TEXT_SIZE = 30;
+    private final float DEFAULT_TEXT_SIZE = 20;
     private Animation animation_fade_in;
     private Animation animation_fade_out;
     private Animation animation_rotate_self;
@@ -202,4 +202,13 @@ public class AddressSelectLayout extends LinearLayout{
         void OnAddressToClick(String text);
 
     }
+
+    public String getTv_from() {
+        return TextUtil.getText(tv_from);
+    }
+
+    public String getTv_to() {
+        return TextUtil.getText(tv_to);
+    }
+
 }
