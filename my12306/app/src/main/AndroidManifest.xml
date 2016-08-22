@@ -26,6 +26,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".widget.calendarSelector.CalendarSelectorActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar"/>
+
         <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/AppThemeLight.NoTranslucent"/>

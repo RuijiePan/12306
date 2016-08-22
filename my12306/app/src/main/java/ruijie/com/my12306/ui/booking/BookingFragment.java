@@ -1,12 +1,12 @@
 package ruijie.com.my12306.ui.booking;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,26 +20,21 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import okhttp3.internal.Util;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.db.dao.User;
 import ruijie.com.my12306.entity.AddressItem;
-import ruijie.com.my12306.ui.base.BaseFragment;
+import ruijie.com.my12306.ui.base.BusFragment;
 import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.ui.main.MainComponent;
-import ruijie.com.my12306.util.DisplayUtil;
-import ruijie.com.my12306.util.LoadMoreRecyclerView;
-import ruijie.com.my12306.util.SnackbarUtils;
 import ruijie.com.my12306.util.TextUtil;
-import ruijie.com.my12306.util.ToastUtil;
 import ruijie.com.my12306.widget.AddressSelectLayout;
+import ruijie.com.my12306.widget.calendarSelector.CalendarSelectorActivity;
 import ruijie.com.my12306.widget.FlowLayout;
-import ruijie.com.my12306.widget.swipeback.Utils;
 
 /**
  * Created by Administrator on 2016/8/18.
  */
-public class BookingFragment extends BaseFragment implements BookingContact.View,View.OnClickListener {
+public class BookingFragment extends BusFragment implements BookingContact.View,View.OnClickListener {
 
     @Inject
     Context context;
@@ -55,7 +50,7 @@ public class BookingFragment extends BaseFragment implements BookingContact.View
     private Button bt_start_time;
     private Button bt_start_date;
     private Button bt_seat_type;
-    private Button bt_student;
+    private Button bt_customer_type;
     private Button bt_search;
     private String[] type;
     private String[] customer;
@@ -65,7 +60,7 @@ public class BookingFragment extends BaseFragment implements BookingContact.View
     private LayoutInflater inflater;
     private View headView;
     private MaterialDialog deleteDialog;
-    private MaterialDialog studentDialog;
+    private MaterialDialog customerDialog;
     private MaterialDialog timeDialog;
     private MaterialDialog seatTypeDialog;
     private MaterialDialog progressDialog;
@@ -113,18 +108,19 @@ public class BookingFragment extends BaseFragment implements BookingContact.View
         //lp.setMargins(0,0,0, DisplayUtil.px2dip(context,100));
         headView.setLayoutParams(lp);
 
+        addressLayout = (AddressSelectLayout) headView.findViewById(R.id.addressLayout);
         flowlayout = (FlowLayout) headView.findViewById(R.id.flowlayout);
         fl_customer = (FlowLayout) headView.findViewById(R.id.fl_customer);
         bt_start_date = (Button) headView.findViewById(R.id.bt_start_date);
         bt_start_time = (Button) headView.findViewById(R.id.bt_start_time);
         bt_seat_type = (Button) headView.findViewById(R.id.bt_seat_type);
-        bt_student = (Button) headView.findViewById(R.id.bt_student);
+        bt_customer_type = (Button) headView.findViewById(R.id.bt_customer_type);
         bt_search = (Button) headView.findViewById(R.id.bt_search);
 
         bt_start_date .setOnClickListener(this);
         bt_start_time.setOnClickListener(this);
         bt_seat_type.setOnClickListener(this);
-        bt_student.setOnClickListener(this);
+        bt_customer_type.setOnClickListener(this);
         bt_search.setOnClickListener(this);
         showContent(true);
     }
@@ -134,12 +130,13 @@ public class BookingFragment extends BaseFragment implements BookingContact.View
         //recyclerview先初始化，将上面布局作为head加入recyclerview
         AddressItem addressItem = new AddressItem("北京","上海");
         list = new ArrayList<>();
-        for (int i=0;i<50;i++)
+        for (int i=0;i<10;i++)
             list.add(addressItem);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         bookingAdapter = new BookingAdapter(list);
         bookingAdapter.addHeaderView(headView);
+        // bookingAdapter.openLoadAnimation();
         recyclerView.setAdapter(bookingAdapter);
 
         //seatFlowLayout;
@@ -178,24 +175,54 @@ public class BookingFragment extends BaseFragment implements BookingContact.View
                 .Builder(getContext())
                 .title("出发时间")
                 .items(R.array.time)
-                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                        return true;
-                    }
+                .itemsCallbackSingleChoice(0, (dialog, itemView, which, text) -> {
+                    bt_start_time.setText(text);
+                    timeDialog.dismiss();
+                    return true;
                 })
-                .positiveText("确定")
-                .show();
+                .build();
+
+        seatTypeDialog = new MaterialDialog
+                .Builder(getContext())
+                .title("席别")
+                .items(R.array.seat_type)
+                .itemsCallbackSingleChoice(0, (dialog, itemView, which, text) -> {
+                    bt_seat_type.setText(text);
+                    seatTypeDialog.dismiss();
+                    return true;
+                })
+                .build();
+        
+        customerDialog = new MaterialDialog
+                .Builder(getContext())
+                .title("顾客类型")
+                .items(R.array.customer_type)
+                .itemsCallbackSingleChoice(0, (dialog, itemView, which, text) -> {
+                    bt_customer_type.setText(text);
+                    customerDialog.dismiss();
+                    return true;
+                })
+                .build();
+
+        progressDialog  = new MaterialDialog
+                .Builder(getContext())
+                .title("提示")
+                .content("正在查询，请稍后...")
+                .progress(true, 0)
+                .build();
     }
 
     @Override
     public void showLoading() {
-        showProgress(true);
+        if (!mainActivity.isFinishing() && !progressDialog.isShowing()) {
+            progressDialog.show();
+        }
     }
 
     @Override
     public void dimissLoading() {
-        showProgress(false);
+        if (!mainActivity.isFinishing() && progressDialog.isShowing())
+            progressDialog.dismiss();
     }
 
     @Override
@@ -230,12 +257,19 @@ public class BookingFragment extends BaseFragment implements BookingContact.View
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_start_date:
+                Intent i = new Intent(context, CalendarSelectorActivity.class);
+                i.putExtra(CalendarSelectorActivity.DAYS_OF_SELECT, 60);
+                i.putExtra(CalendarSelectorActivity.ORDER_DAY,TextUtil.ToSearch(bt_start_date));
+                startActivity(i);
                 break;
             case R.id.bt_start_time:
+                timeDialog.show();
                 break;
             case R.id.bt_seat_type:
+                seatTypeDialog.show();
                 break;
-            case R.id.bt_student:
+            case R.id.bt_customer_type:
+                customerDialog.show();
                 break;
             case R.id.bt_search:
                 presenter.search(
@@ -245,4 +279,5 @@ public class BookingFragment extends BaseFragment implements BookingContact.View
                 break;
         }
     }
+
 }

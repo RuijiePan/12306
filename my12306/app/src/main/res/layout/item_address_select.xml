@@ -24,7 +24,7 @@
       android:text="⇄"
       android:gravity="center_vertical"
       android:textSize="@dimen/text_size_35"
-      android:background="@drawable/item_select_uncheck"
+      android:background="@drawable/item_sync_uncheck"
       android:layout_width="wrap_content"
       android:layout_height="match_parent" />
 

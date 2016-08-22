@@ -1,20 +1,20 @@
 package ruijie.com.my12306.ui.base;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
-import rx.subscriptions.Subscriptions;
 
 /**
- * Created by Administrator on 2016/8/19.
+ * Created by prj on 2016/8/22.
  */
 
-public abstract class BusActivity extends BaseActivity{
+public abstract class BusFragment extends BaseFragment{
 
     public Subscription rxSubscription;
 
-    @Override protected void onDestroy() {
+    @Override
+    public void onDestroy() {
         super.onDestroy();
         if(rxSubscription!=null&&rxSubscription.isUnsubscribed()){
             rxSubscription.unsubscribe();

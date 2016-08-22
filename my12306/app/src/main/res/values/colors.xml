@@ -76,6 +76,11 @@
     <color name="gplus_color_3">#427fed</color>
     <color name="gplus_color_4">#b23424</color>
 
-   <!-- =============================================================-->
+   <!-- ====================日历选择器=========================================-->
+    <color name="calendar_disable_color">#DDDDDD</color>
+    <color name="calendar_enable_color">#666666</color>
+    <color name="calendar_threeday_color">#FA383A</color>
+    <color name="white">#fff</color>
+    <!-- =============================================================-->
     <color name="grey_backgroud">#efeff4</color>
 </resources>

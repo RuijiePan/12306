@@ -31,7 +31,7 @@
                 style="@style/button_clickable" />
 
             <Button
-                android:id="@+id/bt_student"
+                android:id="@+id/bt_customer_type"
                 android:text="学生"
                 style="@style/button_clickable" />
         </LinearLayout>

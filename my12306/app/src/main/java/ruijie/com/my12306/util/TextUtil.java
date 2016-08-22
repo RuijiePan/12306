@@ -25,4 +25,12 @@ public class TextUtil {
     public static String getText(TextView tv){
         return TextUtil.getText(tv.getText().toString());
     }
+
+    public static String ToDate(Button bt){
+        return bt.getText().toString().replace("#","-");
+    }
+
+    public static String ToSearch(Button bt){
+        return bt.getText().toString().replace("-","#");
+    }
 }

@@ -30,6 +30,7 @@
   <dimen name="dp_10">10dp</dimen>
   <dimen name="dp_15">15dp</dimen>
   <dimen name="dp_20">20dp</dimen>
+  <dimen name="dp_25">25dp</dimen>
   <dimen name="dp_30">30dp</dimen>
   <dimen name="button_margin">5dp</dimen>
   <dimen name="bt_margin_bottom_min">7dp</dimen>
@@ -39,4 +40,7 @@
   <dimen name="card_corner_radius">2dp</dimen>
   <dimen name="card_elevation">3dp</dimen>
   <dimen name="item_content_padding">9dp</dimen>
+
+  <dimen name="calendar_item_order_day_size">3.5sp</dimen>
+  <dimen name="calendar_item_nonorder_day_size">5sp</dimen>
 </resources>
