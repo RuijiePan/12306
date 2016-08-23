@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.db.dao.User;
 import ruijie.com.my12306.entity.AddressItem;
+import ruijie.com.my12306.event.addressEvent;
 import ruijie.com.my12306.event.calendarEvent;
 import ruijie.com.my12306.ui.base.BusFragment;
 import ruijie.com.my12306.ui.main.MainActivity;
@@ -184,7 +185,13 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
                 .subscribe(calendarEvent -> {
                     bt_start_date.setText(calendarEvent.getDate());
                 });
-
+        rxSubscription = RxBus.getDefault().toObservable(addressEvent.class)
+                .subscribe(addressEvent -> {
+                    if(addressEvent.isFrom)
+                        addressLayout.setTv_from(addressEvent.getAddress());
+                    else
+                        addressLayout.setTv_to(addressEvent.getAddress());
+                });
 
         deleteDialog = new MaterialDialog
                 .Builder(getContext())

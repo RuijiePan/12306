@@ -210,4 +210,11 @@ public class AddressSelectLayout extends LinearLayout{
         return TextUtil.getText(tv_to);
     }
 
+    public void setTv_from(String s) {
+        this.tv_from.setText(s);
+    }
+
+    public void setTv_to(String s) {
+        this.tv_to.setText(s);
+    }
 }
