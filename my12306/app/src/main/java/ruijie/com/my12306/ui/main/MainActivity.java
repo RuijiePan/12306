@@ -2,6 +2,7 @@ package ruijie.com.my12306.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
@@ -142,4 +143,9 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public android.support.design.widget.AppBarLayout getAppBarLayout(){
+        return AppBarLayout;
+    }
+
 }

@@ -18,11 +18,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,11 +59,12 @@ import static ruijie.com.my12306.R.id.toolbar;
  * @author llbt
  *
  */
-public class CitySelecterActivity extends BaseEmptyActivity {
+public class CitySelecterActivity extends BaseEmptyActivity{
 	private List<RegionInfo> provinceList;
 	private List<RegionInfo> citysList;
 	private List<String> provinces;
 	private ListView sortListView;
+	private LinearLayout root;
 	private SideBar sideBar;
 	private TextView dialog;
 	private Toolbar toolbar;
@@ -113,6 +117,7 @@ public class CitySelecterActivity extends BaseEmptyActivity {
 
 	private void initViews() {
 		//iv_left = (RelativeLayout) findViewById(R.id.iv_left);
+		root = (LinearLayout) findViewById(R.id.root);
 		View view = View.inflate(this, R.layout.head_city_list, null);
 		mGridView = (GridView) view.findViewById(R.id.id_gv_remen);
 		gvAdapter = new MyGridViewAdapter(this,mReMenCitys);
@@ -131,18 +136,14 @@ public class CitySelecterActivity extends BaseEmptyActivity {
 		setTitle("车站选择");
 
 		//设置右侧触摸监听
-		sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-			
-			@Override
-			public void onTouchingLetterChanged(String s) {
-				//该字母首次出现的位置
-				int position = adapter.getPositionForSection(s.charAt(0));
-				if(position != -1){
-					sortListView.setSelection(position);
-				}
-				
-			}
-		});
+		sideBar.setOnTouchingLetterChangedListener(s -> {
+            //该字母首次出现的位置
+            int position = adapter.getPositionForSection(s.charAt(0));
+            if(position != -1){
+                sortListView.setSelection(position);
+            }
+
+        });
 		
 		sortListView = (ListView) findViewById(R.id.country_lvcountry);
 		sortListView.addHeaderView(view);
@@ -170,6 +171,7 @@ public class CitySelecterActivity extends BaseEmptyActivity {
 		
 		
 		mClearEditText = (ClearEditText) findViewById(R.id.filter_edit);
+
 		//根据输入框输入值的改变来过滤搜索
 		mClearEditText.addTextChangedListener(new TextWatcher() {
 			
@@ -196,20 +198,31 @@ public class CitySelecterActivity extends BaseEmptyActivity {
 				CitySelecterActivity.this.finish();
 			}
 		});*/
-		mGridView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				String cityName = mReMenCitys.get(position).getName();
-				RxBus.getDefault().post(new addressEvent(cityName,isFrom));
+		mGridView.setOnItemClickListener((parent, view12, position, id) -> {
+            String cityName = mReMenCitys.get(position).getName();
+			hideSoftInput(mClearEditText.getWindowToken());
+            RxBus.getDefault().post(new addressEvent(cityName,isFrom));
+			this.finish();
 //				String cityName = mReMenCitys.get(position).getName();
 //				hideSoftInput(mClearEditText.getWindowToken());
 //				Intent data = new Intent();
 //			    data.putExtra("cityName", cityName);
 //				setResult(1110, data);
 //				CitySelecterActivity.this.finish();
+        });
+
+		sortListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+			@Override
+			public void onScrollStateChanged(AbsListView absListView, int i) {
+				hideSoftInput(mClearEditText.getWindowToken());
+			}
+
+			@Override
+			public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
 			}
 		});
+		hideSoftInput(mClearEditText.getWindowToken());
 	}
 
 
@@ -274,7 +287,8 @@ public class CitySelecterActivity extends BaseEmptyActivity {
 		Collections.sort(filterDateList, pinyinComparator);
 		adapter.updateListView(filterDateList);
 	}
-    private class MyGridViewAdapter extends MyBaseAdapter<RegionInfo, GridView> {
+
+	private class MyGridViewAdapter extends MyBaseAdapter<RegionInfo, GridView> {
         private LayoutInflater inflater;
 		public MyGridViewAdapter(Context ct, List<RegionInfo> list) {
 			super(ct, list);

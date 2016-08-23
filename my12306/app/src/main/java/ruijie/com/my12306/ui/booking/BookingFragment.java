@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +33,7 @@ import ruijie.com.my12306.event.calendarEvent;
 import ruijie.com.my12306.ui.base.BusFragment;
 import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.ui.main.MainComponent;
+import ruijie.com.my12306.util.HidingScrollListener;
 import ruijie.com.my12306.util.RxBus;
 import ruijie.com.my12306.util.SnackbarUtils;
 import ruijie.com.my12306.util.TextUtil;
@@ -160,6 +165,16 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
         bookingAdapter.addHeaderView(headView);
         // bookingAdapter.openLoadAnimation();
         recyclerView.setAdapter(bookingAdapter);
+        recyclerView.setOnScrollListener(new HidingScrollListener() {
+            @Override
+            public void onHide() {
+                hideViews();
+            }
+            @Override
+            public void onShow() {
+                showViews();
+            }
+        });
 
         //seatFlowLayout;
         type = new String[]{"全部", "G/D/C", "Z字头", "T字头", "K字头", "其他"};
@@ -317,4 +332,13 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
         }
     }
 
+    private void hideViews() {
+        AppBarLayout appBarLayout = mainActivity.getAppBarLayout();
+        mainActivity.getAppBarLayout().animate().translationY(-appBarLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2));
+
+    }
+
+    private void showViews() {
+        mainActivity.getAppBarLayout().animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+    }
 }
