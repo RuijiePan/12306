@@ -26,9 +26,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".widget.calendarSelector.CalendarSelectorActivity"
-            android:theme="@style/AppThemeLight"/>
-
         <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/AppThemeLight.NoTranslucent"/>
@@ -36,6 +33,12 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:theme="@style/AppThemeLight.NoTranslucent"/>
+
+        <activity android:name=".widget.calendarSelector.CalendarSelectorActivity"
+            android:theme="@style/AppThemeLight"/>
+
+        <activity android:name=".widget.citySelector.CitySelecterActivity"
+            android:theme="@style/AppThemeLight"/>
     </application>
 
 </manifest>

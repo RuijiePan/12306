@@ -172,14 +172,14 @@ public class AddressSelectLayout extends LinearLayout{
         switch (view.getId()) {
             case R.id.tv_from:
                 if(selectListener!=null)
-                selectListener.OnAddressFromClick(TextUtil.getText(tv_from.getText().toString()));
+                selectListener.OnAddressFromClick();
                 break;
             case R.id.tv_sync:
                 clickSync(TextUtil.getText(tv_from.getText().toString()),TextUtil.getText(tv_to.getText().toString()));
                 break;
             case R.id.tv_to:
                 if(selectListener!=null)
-                selectListener.OnAddressToClick(TextUtil.getText(tv_to.getText().toString()));
+                selectListener.OnAddressToClick();
                 break;
         }
     }
@@ -196,11 +196,10 @@ public class AddressSelectLayout extends LinearLayout{
         this.selectListener = selectListener;
     }
 
-    interface OnAddressSelectListener{
-        void OnAddressFromClick(String text);
+    public interface OnAddressSelectListener{
+        void OnAddressFromClick();
 
-        void OnAddressToClick(String text);
-
+        void OnAddressToClick();
     }
 
     public String getTv_from() {

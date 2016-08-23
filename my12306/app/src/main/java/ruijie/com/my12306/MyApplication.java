@@ -20,6 +20,7 @@ import ruijie.com.my12306.db.entity.UserDao;
 import ruijie.com.my12306.injector.component.ApplicationComponent;
 import ruijie.com.my12306.injector.component.DaggerApplicationComponent;
 import ruijie.com.my12306.injector.moudel.ApplicationMoudle;
+import ruijie.com.my12306.widget.citySelector.db.DBManager;
 
 /**
  * Created by prj on 2016/8/15.
@@ -27,6 +28,7 @@ import ruijie.com.my12306.injector.moudel.ApplicationMoudle;
 
 public class MyApplication extends Application {
 
+    private DBManager dbHelper;
     private static final int MAX_HEAP_SIZE = (int) Runtime.getRuntime().maxMemory();
     public static final int MAX_DISK_CACHE_SIZE = 50 * ByteConstants.MB;
     public static final int MAX_MEMORY_CACHE_SIZE = MAX_HEAP_SIZE / 8;
@@ -42,6 +44,7 @@ public class MyApplication extends Application {
         super.onCreate();
         initComponent();
         initUser();
+        initCitySelectorDB();
         FileDownloader.init(this, () -> mOkHttpClient);
         initFrescoConfig();
     }
@@ -55,6 +58,12 @@ public class MyApplication extends Application {
 
     private void initUser() {
 
+    }
+
+    private void initCitySelectorDB() {
+        //导入数据库
+        dbHelper = new DBManager(this);
+        dbHelper.openDatabase();
     }
 
     private void initFrescoConfig() {

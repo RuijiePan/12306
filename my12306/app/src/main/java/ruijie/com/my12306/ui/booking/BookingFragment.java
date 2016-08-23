@@ -34,6 +34,7 @@ import ruijie.com.my12306.util.TextUtil;
 import ruijie.com.my12306.widget.AddressSelectLayout;
 import ruijie.com.my12306.widget.calendarSelector.CalendarSelectorActivity;
 import ruijie.com.my12306.widget.FlowLayout;
+import ruijie.com.my12306.widget.citySelector.CitySelecterActivity;
 import rx.functions.Action1;
 
 /**
@@ -122,6 +123,21 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
         bt_customer_type = (Button) headView.findViewById(R.id.bt_customer_type);
         bt_search = (Button) headView.findViewById(R.id.bt_search);
 
+        addressLayout.OnAddressSelectListener(new AddressSelectLayout.OnAddressSelectListener() {
+            @Override
+            public void OnAddressFromClick() {
+                Intent i = new Intent(mainActivity, CitySelecterActivity.class);
+                i.putExtra("isFrom",true);
+                startActivity(i);
+            }
+
+            @Override
+            public void OnAddressToClick() {
+                Intent i = new Intent(mainActivity, CitySelecterActivity.class);
+                i.putExtra("isFrom",false);
+                startActivity(i);
+            }
+        });
         bt_start_date .setOnClickListener(this);
         bt_start_time.setOnClickListener(this);
         bt_seat_type.setOnClickListener(this);
@@ -168,6 +184,7 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
                 .subscribe(calendarEvent -> {
                     bt_start_date.setText(calendarEvent.getDate());
                 });
+
 
         deleteDialog = new MaterialDialog
                 .Builder(getContext())

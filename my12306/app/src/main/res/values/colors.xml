@@ -82,5 +82,11 @@
     <color name="calendar_threeday_color">#FA383A</color>
     <color name="white">#fff</color>
     <!-- =============================================================-->
+
+    <!-- ====================城市选择器=========================================-->
+    <color name="listview_driver">#eeeeee</color>
+    <color name="bg">#4d4d4d</color>
+    <!-- =============================================================-->
+
     <color name="grey_backgroud">#efeff4</color>
 </resources>
