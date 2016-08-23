@@ -17,7 +17,7 @@
   </style>
 
   <style name="AppThemeLight" parent="BaseAppThemeLight">
-    <item name="themeColor">?attr/themeColor</item>
+    <item name="themeColor">@color/colorPrimary</item>
   </style>
 
   <style name="AppThemeLight.NoTranslucent" parent="BaseAppThemeLight">
@@ -258,6 +258,5 @@
   <style name="AppThemeDark.BlueGrey">
     <item name="themeColor">@color/md_blue_grey_700</item>
   </style>
-
 
 </resources>

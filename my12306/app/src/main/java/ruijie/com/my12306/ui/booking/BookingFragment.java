@@ -2,6 +2,7 @@ package ruijie.com.my12306.ui.booking;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,13 +24,17 @@ import butterknife.ButterKnife;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.db.dao.User;
 import ruijie.com.my12306.entity.AddressItem;
+import ruijie.com.my12306.event.calendarEvent;
 import ruijie.com.my12306.ui.base.BusFragment;
 import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.ui.main.MainComponent;
+import ruijie.com.my12306.util.RxBus;
+import ruijie.com.my12306.util.SnackbarUtils;
 import ruijie.com.my12306.util.TextUtil;
 import ruijie.com.my12306.widget.AddressSelectLayout;
 import ruijie.com.my12306.widget.calendarSelector.CalendarSelectorActivity;
 import ruijie.com.my12306.widget.FlowLayout;
+import rx.functions.Action1;
 
 /**
  * Created by Administrator on 2016/8/18.
@@ -159,6 +164,11 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
         fl_customer.addView(tv);
         fl_customer.setOnClickListener(view -> presenter.onCustomClick(new ArrayList<>()));
 
+        rxSubscription = RxBus.getDefault().toObservable(calendarEvent.class)
+                .subscribe(calendarEvent -> {
+                    bt_start_date.setText(calendarEvent.getDate());
+                });
+
         deleteDialog = new MaterialDialog
                 .Builder(getContext())
                 .title("温馨提示")
@@ -229,7 +239,10 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
     public void getCheck(boolean[] check) {
         for (int i = 0; i < check.length; i++) {
             if (check[i]) {
-                flowlayout.getChildAt(i).setBackground(getResources().getDrawable(R.drawable.item_select_check));
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                    flowlayout.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                else
+                    flowlayout.getChildAt(i).setBackground(getResources().getDrawable(R.drawable.item_select_check));
                 ((TextView) flowlayout.getChildAt(i)).setTextColor(getResources().getColor(R.color.md_white));
             } else {
                 flowlayout.getChildAt(i).setBackground(getResources().getDrawable(R.drawable.item_select_uncheck));

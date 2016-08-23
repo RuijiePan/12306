@@ -14,7 +14,8 @@
   ~ limitations under the License.
   -->
 
-<com.gzsll.hupu.widget.swipeback.SwipeBackLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ruijie.com.my12306.widget.swipeback.SwipeBackLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

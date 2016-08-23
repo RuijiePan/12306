@@ -24,9 +24,10 @@
       android:text="⇄"
       android:gravity="center_vertical"
       android:textSize="@dimen/text_size_35"
+      android:textColor="@drawable/sync_textcolor_select"
       android:background="@drawable/item_sync_uncheck"
       android:layout_width="wrap_content"
-      android:layout_height="match_parent" />
+      android:layout_height="wrap_content" />
 
   <TextView
       android:id="@+id/tv_to"

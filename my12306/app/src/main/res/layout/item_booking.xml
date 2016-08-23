@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/Card"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+
 
     <RelativeLayout
         android:clickable="true"
         android:paddingLeft="@dimen/dp_30"
         android:paddingTop="@dimen/dp_15"
         android:paddingBottom="@dimen/dp_15"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@drawable/item_select_clickable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -40,4 +37,3 @@
             android:layout_toRightOf="@+id/tv"
             android:layout_toEndOf="@+id/tv" />
     </RelativeLayout>
-</android.support.v7.widget.CardView>
