@@ -2,6 +2,7 @@ package ruijie.com.my12306.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,12 +10,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -37,6 +42,7 @@ import ruijie.com.my12306.ui.login.LoginFragment;
 import ruijie.com.my12306.ui.me.MeFragment;
 import ruijie.com.my12306.ui.search.SearchFragment;
 import ruijie.com.my12306.util.RxBus;
+import ruijie.com.my12306.util.SnackbarUtils;
 
 public class MainActivity extends BusActivity implements MainContract.View, HasComponent {
 
@@ -48,8 +54,10 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
     android.support.design.widget.CoordinatorLayout CoordinatorLayout;
     @Bind(R.id.content)
     LinearLayout content;
+    private MaterialDialog exitDialog;
     private MainComponent mainComponent;
     private Fragment oldFragment;
+    private View root;
 
     @Override
     protected int initContentView() {
@@ -81,6 +89,17 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
         baseFragmentPagerAdapter = new BaseFragmentPagerAdapter(getSupportFragmentManager(),fragmentList);
         viewPager.setAdapter(baseFragmentPagerAdapter);*/
         initFragment();
+
+        exitDialog = new MaterialDialog
+                .Builder(this)
+                .title("提示")
+                .content("确定离开吗？")
+                .positiveText("确定")
+                .negativeText("取消")
+                .onPositive((dialog, which) -> {
+                    exitDialog.dismiss();
+                })
+                .build();
 
         BottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
             @Override
@@ -140,4 +159,14 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if (!isFinishing() && !exitDialog.isShowing()) {
+                exitDialog.show();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
