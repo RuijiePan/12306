@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,6 +181,10 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
             public void onShow() {
                 showViews(appBarLayout);
             }
+        });
+        bookingAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
+            AddressItem item = bookingAdapter.getItem(i);
+            addressLayout.setAddress(item.getFrom(),item.getTo());
         });
 
         //seatFlowLayout;

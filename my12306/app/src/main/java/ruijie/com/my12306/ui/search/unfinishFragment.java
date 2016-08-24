@@ -50,7 +50,8 @@ public class UnfinishFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         root = view;
 
-
+        //showEmpty(true);
+        //showError(true);
         showContent(true);
     }
 

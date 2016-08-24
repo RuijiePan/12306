@@ -192,6 +192,14 @@ public class AddressSelectLayout extends LinearLayout{
         tv_sync.startAnimation(animation_rotate_self);
     }
 
+    public void setAddress(String from,String to) {
+        tv_from.setText(to);
+        tv_to.setText(from);
+        tv_from.startAnimation(animation_fade_in);
+        tv_to.startAnimation(animation_fade_in);
+        //tv_sync.startAnimation(animation_rotate_self);
+    }
+
     public void OnAddressSelectListener(OnAddressSelectListener selectListener){
         this.selectListener = selectListener;
     }

@@ -38,5 +38,10 @@
     <string name="tomorrow">明天</string>
     <string name="t_d_a_t">后天</string>
     <string name="order_day">\n预订日</string>
+    <string name="order_today">今日订单</string>
+    <string name="order_future">未出行订单</string>
+    <string name="order_history">历史订单</string>
+    <string name="_2018_8_1">2018年8月1日</string>
+    <string name="_0">未完成订单(0)</string>
     <!-- ====================日历选择器=========================================-->
 </resources>
