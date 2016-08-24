@@ -137,9 +137,6 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override protected void onDestroy() {
         super.onDestroy();
         AppManager.getAppManager().finishActivity(this);
-        /*if(rxSubscription!=null&&!rxSubscription.isUnsubscribed()){
-            rxSubscription.unsubscribe();
-        }*/
     }
 
     public void showCurrentFragment(Fragment fragment){

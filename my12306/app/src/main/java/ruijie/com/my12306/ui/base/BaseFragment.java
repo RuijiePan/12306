@@ -1,13 +1,17 @@
 package ruijie.com.my12306.ui.base;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.injector.HasComponent;
+import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.util.ResourceUtil;
 import ruijie.com.my12306.widget.ProgressBarCircularIndeterminate;
 import ruijie.com.my12306.widget.ProgressFragment;
@@ -116,5 +120,13 @@ public abstract class BaseFragment extends ProgressFragment{
 
     @SuppressWarnings("unchecked") protected <C> C getComponent(Class<C> componentType) {
         return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
+    }
+
+    public void hideViews(AppBarLayout appBarLayout) {
+        appBarLayout.animate().translationY(-appBarLayout.getHeight()).setInterpolator(new LinearInterpolator()).setDuration(250);
+    }
+
+    public void showViews(AppBarLayout appBarLayout) {
+        appBarLayout.animate().translationY(0).setInterpolator(new LinearInterpolator()).setDuration(250);
     }
 }

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,6 +57,10 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
     BookingPresenter presenter;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
+    @Bind(R.id.AppBarLayout)
+    AppBarLayout appBarLayout;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     private FlowLayout flowlayout;
     private FlowLayout fl_customer;
     private AddressSelectLayout addressLayout;
@@ -114,10 +119,11 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
         presenter.attachView(this);
         root = view;
 
+        mainActivity.setSupportActionBar(toolbar);
+        mainActivity.setTitle("车票预订");
         inflater = mainActivity.getLayoutInflater();
         headView = inflater.inflate(R.layout.layout_booking_head, null);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        //lp.setMargins(0,0,0, DisplayUtil.px2dip(context,100));
         headView.setLayoutParams(lp);
 
         addressLayout = (AddressSelectLayout) headView.findViewById(R.id.addressLayout);
@@ -168,11 +174,11 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
         recyclerView.setOnScrollListener(new HidingScrollListener() {
             @Override
             public void onHide() {
-                hideViews();
+                hideViews(appBarLayout);
             }
             @Override
             public void onShow() {
-                showViews();
+                showViews(appBarLayout);
             }
         });
 
@@ -332,13 +338,4 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
         }
     }
 
-    private void hideViews() {
-        AppBarLayout appBarLayout = mainActivity.getAppBarLayout();
-        mainActivity.getAppBarLayout().animate().translationY(-appBarLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2));
-
-    }
-
-    private void showViews() {
-        mainActivity.getAppBarLayout().animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
-    }
 }

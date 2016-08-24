@@ -16,8 +16,6 @@ public interface MainContract {
     interface View extends BaseView{
 
         void showFragment(Fragment fragment);
-
-        void showTitle(String title,boolean isShowBack);
     }
 
     interface Presenter extends BasePresenter<View>{

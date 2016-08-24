@@ -3,6 +3,7 @@ package ruijie.com.my12306.ui.me;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     Button btNotification;
     @Bind(R.id.bt_about)
     Button btAbout;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     View root;
 
     public static MeFragment getInstance() {
@@ -79,6 +82,11 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public void initUI(View view) {
         ButterKnife.bind(this, view);
         root = view;
+
+        mainActivity.setSupportActionBar(toolbar);
+        mainActivity.setTitle("我的12306");
+
+        showContent(true);
     }
 
     @Override
@@ -113,5 +121,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
+
 }
 

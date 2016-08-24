@@ -3,12 +3,14 @@ package ruijie.com.my12306.ui.main;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -44,14 +46,8 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
     MainPresenter mainPresenter;
     @Bind(R.id.CoordinatorLayout)
     android.support.design.widget.CoordinatorLayout CoordinatorLayout;
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
-    @Bind(R.id.AppBarLayout)
-    android.support.design.widget.AppBarLayout AppBarLayout;
     @Bind(R.id.content)
     LinearLayout content;
-    @Bind(R.id.rv)
-    RecyclerView rv;
     private MainComponent mainComponent;
     private Fragment oldFragment;
 
@@ -85,15 +81,6 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
         baseFragmentPagerAdapter = new BaseFragmentPagerAdapter(getSupportFragmentManager(),fragmentList);
         viewPager.setAdapter(baseFragmentPagerAdapter);*/
         initFragment();
-        setSupportActionBar(toolbar);
-
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        List<AddressItem> addressItems = new ArrayList<>();
-        addressItems.add(new AddressItem("haha","tt"));
-        addressItems.add(new AddressItem("haha","tt"));
-        addressItems.add(new AddressItem("haha","tt"));
-        BookingAdapter adapter = new BookingAdapter(addressItems);
-        rv.setAdapter(adapter);
 
         BottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
             @Override
@@ -125,16 +112,6 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
         }
     }
 
-    @Override
-    public void showTitle(String title,boolean isShowBack) {
-        if (isShowBack){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }else {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        }
-        toolbar.setTitle(title);
-    }
-
     public void initFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content, BookingFragment.getInstance())
@@ -161,10 +138,6 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public android.support.design.widget.AppBarLayout getAppBarLayout(){
-        return AppBarLayout;
     }
 
 }
