@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import butterknife.ButterKnife;
 import ruijie.com.my12306.AppManager;
 import ruijie.com.my12306.MyApplication;
 import ruijie.com.my12306.R;
@@ -137,6 +138,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override protected void onDestroy() {
         super.onDestroy();
         AppManager.getAppManager().finishActivity(this);
+        ButterKnife.unbind(this);
     }
 
     public void showCurrentFragment(Fragment fragment){

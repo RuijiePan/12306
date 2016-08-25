@@ -1,6 +1,7 @@
 package ruijie.com.my12306.ui.me;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.ui.base.BaseFragment;
+import ruijie.com.my12306.ui.login.LoginActivity;
 import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.ui.main.MainComponent;
 
@@ -104,6 +106,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_login:
+                Intent i = new Intent(context, LoginActivity.class);
+                startActivity(i);
                 break;
             case R.id.bt_register:
                 break;

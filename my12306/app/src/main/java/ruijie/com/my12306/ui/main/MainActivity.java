@@ -50,6 +50,8 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
     it.sephiroth.android.library.bottomnavigation.BottomNavigation BottomNavigation;
     @Inject
     MainPresenter mainPresenter;
+    @Inject
+    MainActivity mainActivity;
     @Bind(R.id.CoordinatorLayout)
     android.support.design.widget.CoordinatorLayout CoordinatorLayout;
     @Bind(R.id.content)
@@ -57,7 +59,6 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
     private MaterialDialog exitDialog;
     private MainComponent mainComponent;
     private Fragment oldFragment;
-    private View root;
 
     @Override
     protected int initContentView() {
@@ -168,5 +169,11 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mainPresenter.detachView();
     }
 }
