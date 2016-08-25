@@ -40,4 +40,5 @@ public class FastJsonConverterFactory extends Converter.Factory {
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
         return new FastJsonResponseBodyConverter<>(type, charset);
     }
+
 }

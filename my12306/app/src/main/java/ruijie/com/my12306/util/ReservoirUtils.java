@@ -30,9 +30,12 @@ import com.anupcowkur.reservoir.Reservoir;
 import com.anupcowkur.reservoir.ReservoirDeleteCallback;
 import com.anupcowkur.reservoir.ReservoirGetCallback;
 import com.anupcowkur.reservoir.ReservoirPutCallback;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
+import ruijie.com.my12306.db.dao.User;
 import rx.Observable;
 
 /**
@@ -85,7 +88,18 @@ public class ReservoirUtils {
 
 
     public void delete(String key) {
-        if (this.contains(key)) Reservoir.deleteAsync(key);
+        if (this.contains(key))
+            Reservoir.deleteAsync(key, new ReservoirDeleteCallback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+
+                }
+            });
     }
 
 
@@ -96,7 +110,6 @@ public class ReservoirUtils {
                 public void onSuccess() {
                     ReservoirUtils.this.put(key, object);
                 }
-
 
                 @Override
                 public void onFailure(Exception e) {
@@ -110,7 +123,7 @@ public class ReservoirUtils {
 
 
     public <T> Observable<T> get(String key, Class<T> clazz) {
-        return Reservoir.getAsync(key, clazz);
+        return Reservoir.getUsingObservable(key, clazz);
     }
 
 
@@ -122,5 +135,10 @@ public class ReservoirUtils {
 
     public <T> void get(final String key, final Type typeOfT, final ReservoirGetCallback<T> callback) {
         Reservoir.getAsync(key, typeOfT, callback);
+    }
+
+    public <T> Observable<T>  getList(String key,Class<T> clazz){
+        Type collectionType = new TypeToken<List<T>>(){}.getType();
+        return Reservoir.getUsingObservable(key,clazz,collectionType);
     }
 }

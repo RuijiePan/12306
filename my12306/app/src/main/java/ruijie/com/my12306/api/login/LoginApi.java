@@ -5,6 +5,7 @@ import java.util.HashMap;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import ruijie.com.my12306.bean.loginBean;
 import ruijie.com.my12306.components.retrofit.FastJsonConverterFactory;
 import ruijie.com.my12306.components.retrofit.RequestHelper;
@@ -25,7 +26,7 @@ public class LoginApi {
     public LoginApi(RequestHelper requestHelper, OkHttpClient okHttpClient){
         this.requestHelper = requestHelper;
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(FastJsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

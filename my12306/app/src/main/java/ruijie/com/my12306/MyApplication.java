@@ -2,6 +2,7 @@ package ruijie.com.my12306;
 
 import android.app.Application;
 
+import com.anupcowkur.reservoir.Reservoir;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.common.util.ByteConstants;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -9,13 +10,17 @@ import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFact
 import com.facebook.imagepipeline.cache.MemoryCacheParams;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
+import com.google.gson.Gson;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.util.FileDownloadHelper;
+
+import java.io.IOException;
 
 import javax.inject.Inject;
 
 import okhttp3.OkHttpClient;
 import ruijie.com.my12306.components.storage.UserStorage;
+import ruijie.com.my12306.db.dao.User;
 import ruijie.com.my12306.db.entity.UserDao;
 import ruijie.com.my12306.injector.component.ApplicationComponent;
 import ruijie.com.my12306.injector.component.DaggerApplicationComponent;
@@ -32,7 +37,9 @@ public class MyApplication extends Application {
     private static final int MAX_HEAP_SIZE = (int) Runtime.getRuntime().maxMemory();
     public static final int MAX_DISK_CACHE_SIZE = 50 * ByteConstants.MB;
     public static final int MAX_MEMORY_CACHE_SIZE = MAX_HEAP_SIZE / 8;
-
+    public static final long ONE_KB = 1024L;
+    public static final long ONE_MB = ONE_KB * 1024L;
+    public static final long CACHE_DATA_MAX_SIZE = ONE_MB * 3L;
     private ApplicationComponent mApplicationComponent;
 
     @Inject UserStorage mUserStorage;
@@ -44,6 +51,7 @@ public class MyApplication extends Application {
         super.onCreate();
         initComponent();
         initUser();
+        initReservoir();
         initCitySelectorDB();
         FileDownloader.init(this, () -> mOkHttpClient);
         initFrescoConfig();
@@ -58,6 +66,14 @@ public class MyApplication extends Application {
 
     private void initUser() {
 
+    }
+
+    private void initReservoir() {
+        try {
+            Reservoir.init(this, CACHE_DATA_MAX_SIZE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initCitySelectorDB() {
