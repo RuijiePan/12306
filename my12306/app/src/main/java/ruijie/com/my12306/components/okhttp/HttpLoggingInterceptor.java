@@ -93,7 +93,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
          */
         Logger DEFAULT = new Logger() {
             @Override public void log(String message) {
-                Platform.get().log(message);
+                Platform.get().log(3,message,new Throwable());
             }
         };
     }

@@ -1,10 +1,10 @@
 package ruijie.com.my12306.ui.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import ruijie.com.my12306.ui.base.BaseActivity;
 import ruijie.com.my12306.util.SettingPrefUtil;
 import ruijie.com.my12306.widget.swipeback.SwipeBackActivityBase;
 import ruijie.com.my12306.widget.swipeback.SwipeBackActivityHelper;
@@ -12,18 +12,21 @@ import ruijie.com.my12306.widget.swipeback.SwipeBackLayout;
 import ruijie.com.my12306.widget.swipeback.Utils;
 
 /**
- * Created by Administrator on 2016/8/16.
+ * Created by sll on 2015/9/10 0010.
  */
-
-public abstract class BaseSwipeBackActivity extends BaseActivity implements SwipeBackActivityBase{
+public abstract class BaseSwipeBackActivity extends BaseActivity implements SwipeBackActivityBase {
 
     private SwipeBackActivityHelper mHelper;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
+    }
+
+    @Override protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mHelper.onPostCreate();
     }
 
     @Override public View findViewById(int id) {
