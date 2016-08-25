@@ -80,4 +80,5 @@ dependencies {
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.7'
     compile 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:1.0.7'
+    compile 'com.anupcowkur:reservoir:2.1'
 }

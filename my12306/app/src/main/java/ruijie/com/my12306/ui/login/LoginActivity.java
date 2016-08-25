@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,7 +21,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.ui.base.BaseActivity;
-import ruijie.com.my12306.ui.main.DaggerMainComponent;
 import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.util.SnackbarUtils;
 
@@ -36,8 +34,6 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
     LoginPresenter mPresenter;
     @Inject
     Context context;
-    @Inject
-    MainActivity mainActivity;
     @Bind(R.id.etUserName)
     EditText etUserName;
     @Bind(R.id.textInputUserName)
@@ -48,7 +44,7 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
     TextInputLayout textInputPassword;
     @Bind(R.id.btnCommit)
     Button btnCommit;
-    @Bind(R.id.ll)
+    //@Bind(R.id.ll)
     LinearLayout root;
     LoginComponent loginComponent;
     private MaterialDialog dialog;
@@ -68,13 +64,15 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
         loginComponent = DaggerLoginComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityMoudle(getActivityMoudle())
-                .build()
-                .inject(this);
+                .build();
+        loginComponent.inject(this);
     }
 
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
+        root = (LinearLayout) findViewById(R.id.ll);
+        mPresenter.attachView(this);
         btnCommit.setOnClickListener(view1 ->
                 mPresenter.login(etUserName.getText().toString().trim()
                         ,etPassWord.getText().toString().trim()));
