@@ -1,11 +1,13 @@
 package ruijie.com.my12306.ui.login;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -17,6 +19,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.codetail.animation.ViewAnimationUtils;
+import io.codetail.widget.RevealLinearLayout;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.ui.base.BaseActivity;
 import ruijie.com.my12306.ui.base.BaseSwipeBackActivity;
@@ -46,7 +50,7 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginContact
     Toolbar toolbar;
     //@Bind(R.id.ll)
     LoginComponent loginComponent;
-    LinearLayout root;
+    RevealLinearLayout root;
     private MaterialDialog dialog;
 
     @Override
@@ -71,7 +75,7 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginContact
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
-        root = (LinearLayout) findViewById(R.id.ll);
+        root = (RevealLinearLayout) findViewById(R.id.root);
 
         initToolBar(toolbar);
         setTitle("登陆");
@@ -87,6 +91,22 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginContact
         etUserName.addTextChangedListener(new MTextWatcher(textInputUserName));
         etPassWord.addTextChangedListener(new MTextWatcher(textInputPassword));
         mPresenter.attachView(this);
+
+        if(toolbar!=null) {
+            int cx = (toolbar.getLeft() + toolbar.getRight()) / 2;
+            int cy = (toolbar.getTop() + toolbar.getBottom()) / 2;
+
+            int dx = Math.max(cx, toolbar.getWidth() - cx);
+            int dy = Math.max(cy, toolbar.getHeight() - cy);
+            float finalRadius = (float) Math.hypot(dx, dy);
+
+            // Android native animator
+            Animator animator =
+                    ViewAnimationUtils.createCircularReveal(toolbar, cx, cy, 0, finalRadius);
+            animator.setInterpolator(new AccelerateDecelerateInterpolator());
+            animator.setDuration(15000);
+            animator.start();
+        }
     }
 
     @Override
