@@ -108,6 +108,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.bt_login:
                 Intent i = new Intent(context, LoginActivity.class);
                 startActivity(i);
+                mainActivity.overridePendingTransition(0,0);
                 break;
             case R.id.bt_register:
                 break;

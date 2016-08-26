@@ -18,6 +18,7 @@
 
   <style name="AppThemeLight" parent="BaseAppThemeLight">
     <item name="themeColor">@color/colorPrimary</item>
+    <item name="android:windowIsTranslucent">false</item>
   </style>
 
   <style name="AppThemeLight.NoTranslucent" parent="BaseAppThemeLight">
@@ -54,6 +55,10 @@
   <!-- App Theme Launch -->
   <style name="AppThemeLaunch" parent="BaseAppThemeLight">
     <item name="android:windowBackground">@color/colorPrimary</item>
+  </style>
+
+  <style name="TransparentActivity" parent="BaseAppThemeLight">
+    <item name="android:windowBackground">@android:color/transparent</item>
   </style>
 
   <style name="AppWidget" parent="Theme.AppCompat.Light"/>

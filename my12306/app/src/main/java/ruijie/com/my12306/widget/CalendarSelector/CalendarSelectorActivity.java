@@ -1,17 +1,20 @@
 package ruijie.com.my12306.widget.calendarSelector;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.ViewTreeObserver;
 import android.widget.ListView;
 
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.event.calendarEvent;
 import ruijie.com.my12306.ui.base.BaseEmptyActivity;
 import ruijie.com.my12306.ui.main.MainPresenter;
+import ruijie.com.my12306.util.AnimationUtil;
 import ruijie.com.my12306.util.RxBus;
 import ruijie.com.my12306.widget.swipeback.SwipeBackActivityHelper;
 
@@ -56,6 +59,16 @@ public class CalendarSelectorActivity extends BaseEmptyActivity {
 			RxBus.getDefault().post(calendarEvent.getInstance());
 			finish();
         });
+
+		listView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+			@Override
+			public boolean onPreDraw() {
+				listView.getViewTreeObserver().removeOnPreDrawListener(this);
+				Animator animator = AnimationUtil.getCircularReveal(listView,2,600);
+				animator.start();
+				return true;
+			}
+		});
 	}
 
 	@Override

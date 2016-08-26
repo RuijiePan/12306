@@ -142,6 +142,7 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
                 Intent i = new Intent(mainActivity, CitySelecterActivity.class);
                 i.putExtra("isFrom",true);
                 startActivity(i);
+                mainActivity.overridePendingTransition(0,0);
             }
 
             @Override
@@ -149,6 +150,7 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
                 Intent i = new Intent(mainActivity, CitySelecterActivity.class);
                 i.putExtra("isFrom",false);
                 startActivity(i);
+                mainActivity.overridePendingTransition(0,0);
             }
         });
         bt_start_date .setOnClickListener(this);
@@ -324,6 +326,7 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
                 i.putExtra(CalendarSelectorActivity.DAYS_OF_SELECT, 60);
                 i.putExtra(CalendarSelectorActivity.ORDER_DAY,TextUtil.ToSearch(bt_start_date));
                 startActivity(i);
+                getActivity().overridePendingTransition(0,0);
                 break;
             case R.id.bt_start_time:
                 timeDialog.show();

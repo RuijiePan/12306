@@ -3,10 +3,12 @@ package ruijie.com.my12306.ui.login;
 import android.animation.Animator;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +24,8 @@ import butterknife.OnClick;
 import io.codetail.animation.ViewAnimationUtils;
 import io.codetail.widget.RevealLinearLayout;
 import ruijie.com.my12306.R;
-import ruijie.com.my12306.ui.base.BaseActivity;
 import ruijie.com.my12306.ui.base.BaseSwipeBackActivity;
+import ruijie.com.my12306.util.AnimationUtil;
 import ruijie.com.my12306.util.SnackbarUtils;
 
 /**
@@ -50,7 +52,9 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginContact
     Toolbar toolbar;
     //@Bind(R.id.ll)
     LoginComponent loginComponent;
-    RevealLinearLayout root;
+    LinearLayout root;
+    @Bind(R.id.AppBarLayout)
+    android.support.design.widget.AppBarLayout AppBarLayout;
     private MaterialDialog dialog;
 
     @Override
@@ -75,10 +79,11 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginContact
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
-        root = (RevealLinearLayout) findViewById(R.id.root);
+        root = (LinearLayout) findViewById(R.id.root);
 
         initToolBar(toolbar);
-        setTitle("登陆");
+        //setSupportActionBar(toolbar);
+        setTitle("登录");
 
         mPresenter.attachView(this);
         btnCommit.setOnClickListener(view1 ->
@@ -90,23 +95,17 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginContact
                 .build();
         etUserName.addTextChangedListener(new MTextWatcher(textInputUserName));
         etPassWord.addTextChangedListener(new MTextWatcher(textInputPassword));
+
+        root.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                root.getViewTreeObserver().removeOnPreDrawListener(this);
+                Animator animator = AnimationUtil.getCircularReveal(root,2,600);
+                animator.start();
+                return true;
+            }
+        });
         mPresenter.attachView(this);
-
-        if(toolbar!=null) {
-            int cx = (toolbar.getLeft() + toolbar.getRight()) / 2;
-            int cy = (toolbar.getTop() + toolbar.getBottom()) / 2;
-
-            int dx = Math.max(cx, toolbar.getWidth() - cx);
-            int dy = Math.max(cy, toolbar.getHeight() - cy);
-            float finalRadius = (float) Math.hypot(dx, dy);
-
-            // Android native animator
-            Animator animator =
-                    ViewAnimationUtils.createCircularReveal(toolbar, cx, cy, 0, finalRadius);
-            animator.setInterpolator(new AccelerateDecelerateInterpolator());
-            animator.setDuration(15000);
-            animator.start();
-        }
     }
 
     @Override

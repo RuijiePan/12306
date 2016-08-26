@@ -1,5 +1,6 @@
 package ruijie.com.my12306.widget.citySelector;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +40,7 @@ import ruijie.com.my12306.R;
 import ruijie.com.my12306.event.addressEvent;
 import ruijie.com.my12306.ui.base.BaseEmptyActivity;
 import ruijie.com.my12306.ui.base.BusActivity;
+import ruijie.com.my12306.util.AnimationUtil;
 import ruijie.com.my12306.util.RxBus;
 import ruijie.com.my12306.util.SnackbarUtils;
 import ruijie.com.my12306.widget.citySelector.adapter.MyBaseAdapter;
@@ -65,6 +67,7 @@ public class CitySelecterActivity extends BaseEmptyActivity{
 	private List<String> provinces;
 	private ListView sortListView;
 	private LinearLayout root;
+	private LinearLayout ll;
 	private SideBar sideBar;
 	private TextView dialog;
 	private Toolbar toolbar;
@@ -118,6 +121,7 @@ public class CitySelecterActivity extends BaseEmptyActivity{
 	private void initViews() {
 		//iv_left = (RelativeLayout) findViewById(R.id.iv_left);
 		root = (LinearLayout) findViewById(R.id.root);
+		ll = (LinearLayout) findViewById(R.id.ll);
 		View view = View.inflate(this, R.layout.head_city_list, null);
 		mGridView = (GridView) view.findViewById(R.id.id_gv_remen);
 		gvAdapter = new MyGridViewAdapter(this,mReMenCitys);
@@ -223,6 +227,16 @@ public class CitySelecterActivity extends BaseEmptyActivity{
 			}
 		});
 		hideSoftInput(mClearEditText.getWindowToken());
+
+		ll.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+			@Override
+			public boolean onPreDraw() {
+				ll.getViewTreeObserver().removeOnPreDrawListener(this);
+				Animator animator = AnimationUtil.getCircularReveal(ll,2,600);
+				animator.start();
+				return true;
+			}
+		});
 	}
 
 

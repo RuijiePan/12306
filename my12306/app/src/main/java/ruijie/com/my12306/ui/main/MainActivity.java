@@ -99,6 +99,7 @@ public class MainActivity extends BusActivity implements MainContract.View, HasC
                 .negativeText("取消")
                 .onPositive((dialog, which) -> {
                     exitDialog.dismiss();
+                    finish();
                 })
                 .build();
 
