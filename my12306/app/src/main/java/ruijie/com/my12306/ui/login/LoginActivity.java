@@ -26,6 +26,7 @@ import io.codetail.widget.RevealLinearLayout;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.ui.base.BaseSwipeBackActivity;
 import ruijie.com.my12306.util.AnimationUtil;
+import ruijie.com.my12306.util.MTextWatcher;
 import ruijie.com.my12306.util.SnackbarUtils;
 
 /**
@@ -81,9 +82,7 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginContact
         ButterKnife.bind(this);
         root = (LinearLayout) findViewById(R.id.root);
 
-        initToolBar(toolbar);
-        //setSupportActionBar(toolbar);
-        setTitle("登录");
+        initToolBar(toolbar,"登录");
 
         mPresenter.attachView(this);
         btnCommit.setOnClickListener(view1 ->
@@ -153,30 +152,6 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginContact
         String mUserName = etUserName.getText().toString().trim();
         String mPassword = etPassWord.getText().toString().trim();
         mPresenter.login(mUserName, mPassword);
-    }
-
-    class MTextWatcher implements TextWatcher {
-
-        TextInputLayout textInputLayout;
-
-        public MTextWatcher(TextInputLayout textInputLayout) {
-            this.textInputLayout = textInputLayout;
-        }
-
-        @Override
-        public void afterTextChanged(Editable arg0) {
-
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-            textInputLayout.setErrorEnabled(false);
-        }
     }
 
     @Override

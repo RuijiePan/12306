@@ -20,6 +20,7 @@ import ruijie.com.my12306.ui.base.BaseFragment;
 import ruijie.com.my12306.ui.login.LoginActivity;
 import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.ui.main.MainComponent;
+import ruijie.com.my12306.ui.register.RegisterActivity;
 
 /**
  * Created by Administrator on 2016/8/18.
@@ -111,6 +112,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 mainActivity.overridePendingTransition(0,0);
                 break;
             case R.id.bt_register:
+                i = new Intent(context, RegisterActivity.class);
+                startActivity(i);
+                mainActivity.overridePendingTransition(0,0);
                 break;
             case R.id.bt_guide:
                 break;

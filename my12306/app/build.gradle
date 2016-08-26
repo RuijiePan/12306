@@ -89,4 +89,6 @@ dependencies {
     compile ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
         transitive = true;
     }
+    //正则表达式验证
+    compile 'com.blankj:utilcode:1.1.3'
 }

@@ -16,8 +16,10 @@ import ruijie.com.my12306.injector.moudel.ApplicationMoudle;
 import ruijie.com.my12306.injector.moudel.DBModule;
 import ruijie.com.my12306.ui.base.BaseActivity;
 import ruijie.com.my12306.ui.booking.BookingFragment;
+import ruijie.com.my12306.ui.login.LoginActivity;
 import ruijie.com.my12306.ui.login.LoginFragment;
 import ruijie.com.my12306.ui.me.MeFragment;
+import ruijie.com.my12306.ui.register.RegisterActivity;
 import ruijie.com.my12306.ui.search.SearchFragment;
 
 /**

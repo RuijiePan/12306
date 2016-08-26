@@ -43,5 +43,13 @@
     <string name="order_history">历史订单</string>
     <string name="_2018_8_1">2018年8月1日</string>
     <string name="_0">未完成订单(0)</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="certain_password">确认密码</string>
+    <string name="id">身份证号</string>
+    <string name="phone_number">联系方式</string>
+    <string name="identity">身份类型</string>
+    <string name="email">邮箱</string>
+    <string name="register">注册</string>
     <!-- ====================日历选择器=========================================-->
 </resources>

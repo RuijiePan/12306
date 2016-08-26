@@ -52,11 +52,12 @@ public abstract class BaseSwipeBackActivity extends BaseActivity implements Swip
         super.finish();
     }
 
-    public void initToolBar(Toolbar mToolBar) {
+    public void initToolBar(Toolbar mToolBar,String title) {
         if (null != mToolBar) {
             setSupportActionBar(mToolBar);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            setTitle(title);
         }
     }
 
