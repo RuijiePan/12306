@@ -3,7 +3,6 @@
 <io.codetail.widget.RevealLinearLayout
     android:id="@+id/reveall"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/md_white"
     style="@style/linearlayout_style_match"
     >
 
@@ -13,7 +12,7 @@
       android:id="@+id/root"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/md_white"
+      android:background="@drawable/register_background"
       xmlns:android="http://schemas.android.com/apk/res/android">
 
       <LinearLayout

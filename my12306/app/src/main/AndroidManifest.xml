@@ -41,10 +41,10 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".widget.calendarSelector.CalendarSelectorActivity"
-            android:theme="@style/AppThemeLight"/>
+            android:theme="@style/TransparentActivity"/>
 
         <activity android:name=".widget.citySelector.CitySelecterActivity"
-            android:theme="@style/AppThemeLight"/>
+            android:theme="@style/TransparentActivity"/>
     </application>
 
 </manifest>

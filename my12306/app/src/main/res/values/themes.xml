@@ -58,6 +58,7 @@
   </style>
 
   <style name="TransparentActivity" parent="BaseAppThemeLight">
+    <item name="themeColor">@color/colorPrimary</item>
     <item name="android:windowBackground">@android:color/transparent</item>
   </style>
 

@@ -113,9 +113,9 @@ public class RegisterActivity extends BaseSwipeBackActivity implements RegisterC
     public void initUiAndListener() {
         ButterKnife.bind(this);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.girl);
-        BitmapDrawable bitmapDrawable = new BitmapDrawable(BlurUtil.fastblur(context,bitmap,120));
-        root.setBackground(bitmapDrawable);
+        /*Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.girl);
+        BitmapDrawable bitmapDrawable = new BitmapDrawable(BlurUtil.fastblur(context,bitmap,200));
+        root.setBackground(bitmapDrawable);*/
 
         initToolBar(toolbar, "注册");
         dialog = new MaterialDialog.Builder(context)
