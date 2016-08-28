@@ -3,12 +3,19 @@ package ruijie.com.my12306.ui.me;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import javax.inject.Inject;
 
@@ -21,6 +28,8 @@ import ruijie.com.my12306.ui.login.LoginActivity;
 import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.ui.main.MainComponent;
 import ruijie.com.my12306.ui.register.RegisterActivity;
+import ruijie.com.my12306.util.MTextWatcher;
+import ruijie.com.my12306.widget.citySelector.utils.ClearEditText;
 
 /**
  * Created by Administrator on 2016/8/18.
@@ -52,6 +61,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     View root;
+    private MaterialDialog loginDialog;
+    private View loginView;
+    private ClearEditText et_username;
+    private ClearEditText et_password;
+    private TextInputLayout textInputPassword;
+    private TextInputLayout textInputUserName;
 
     public static MeFragment getInstance() {
         if (instance == null) {
@@ -89,6 +104,31 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         mainActivity.setSupportActionBar(toolbar);
         mainActivity.setTitle("我的12306");
 
+        loginView = mainActivity.getLayoutInflater().inflate(R.layout.layout_login,null,false);
+        et_username = (ClearEditText) loginView.findViewById(R.id.etUserName);
+        et_password = (ClearEditText) loginView.findViewById(R.id.etPassWord);
+        textInputUserName = (TextInputLayout) loginView.findViewById(R.id.textInputUserName);
+        textInputPassword = (TextInputLayout) loginView.findViewById(R.id.textInputPassword);
+        et_username.addTextChangedListener(new MTextWatcher(textInputUserName));
+        et_password.addTextChangedListener(new MTextWatcher(textInputPassword));
+
+        loginDialog = new MaterialDialog.Builder(getContext())
+                .title("登陆")
+                .customView(loginView,true)
+                .positiveText("登陆")
+                .neutralText("无法登陆？")
+                .neutralColor(getResources().getColor(R.color.base_text_black))
+                /*.inputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
+                        InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                .alwaysCallInputCallback()
+                .input(R.string.about, 0, false, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+
+                    }
+                })*/
+                .build();
         showContent(true);
     }
 
@@ -107,14 +147,15 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_login:
-                Intent i = new Intent(context, LoginActivity.class);
+                /*Intent i = new Intent(context, LoginActivity.class);
                 startActivity(i);
-                mainActivity.overridePendingTransition(0,0);
+                mainActivity.overridePendingTransition(0,0);*/
+                loginDialog.show();
                 break;
             case R.id.bt_register:
-                i = new Intent(context, RegisterActivity.class);
+                /*i = new Intent(context, RegisterActivity.class);
                 startActivity(i);
-                mainActivity.overridePendingTransition(0,0);
+                mainActivity.overridePendingTransition(0,0);*/
                 break;
             case R.id.bt_guide:
                 break;
