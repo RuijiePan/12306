@@ -2,6 +2,7 @@ package ruijie.com.my12306.ui.me;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Observable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
@@ -26,22 +27,28 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.ui.base.BaseFragment;
+import ruijie.com.my12306.ui.base.BusFragment;
 import ruijie.com.my12306.ui.login.LoginActivity;
 import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.ui.main.MainComponent;
 import ruijie.com.my12306.ui.register.RegisterActivity;
 import ruijie.com.my12306.util.MTextWatcher;
+import ruijie.com.my12306.util.SnackbarUtils;
 import ruijie.com.my12306.widget.citySelector.utils.ClearEditText;
+import rx.Subscriber;
+import rx.observers.Observers;
 
 /**
  * Created by Administrator on 2016/8/18.
  */
 
-public class MeFragment extends BaseFragment implements View.OnClickListener {
+public class MeFragment extends BusFragment implements View.OnClickListener,MeContract.View{
 
     public static MeFragment instance;
     @Inject
     MainActivity mainActivity;
+    @Inject
+    MePresenter mePresenter;
     @Inject
     Context context;
     @Bind(R.id.bt_login)
@@ -64,9 +71,20 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     Toolbar toolbar;
     View root;
     private MaterialDialog loginDialog;
+    private MaterialDialog commitDialog;
+    private MaterialDialog regDialogF;
+    private MaterialDialog regDialogS;
     private View loginView;
+    private View regViewF;
+    private View regViewS;
     private ClearEditText et_username;
     private ClearEditText et_password;
+    private ClearEditText rg_usernmae;
+    private ClearEditText rg_password;
+    private ClearEditText rg_spassword;
+    private TextInputEditText rgTextInputUserName;
+    private TextInputEditText rgTextInputPassWord;
+    private TextInputEditText rgTextInputSPassWord;
     private TextInputLayout textInputPassword;
     private TextInputLayout textInputUserName;
 
@@ -103,6 +121,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         ButterKnife.bind(this, view);
         root = view;
 
+        mePresenter.attachView(this);
         mainActivity.setSupportActionBar(toolbar);
         mainActivity.setTitle("我的12306");
 
@@ -114,6 +133,14 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         et_username.addTextChangedListener(new LoginextWatcher(textInputUserName));
         et_password.addTextChangedListener(new LoginextWatcher(textInputPassword));
 
+        regViewF = mainActivity.getLayoutInflater().inflate(R.layout.layout_register_f,null,false);
+        rg_usernmae = (ClearEditText) regDialogF.findViewById(R.id.rgUserName);
+        rg_password = (ClearEditText) regDialogF.findViewById(R.id.rgPassWord);
+        rg_spassword = (ClearEditText) regDialogF.findViewById(R.id.rgSPassWord);
+        rgTextInputUserName = (TextInputEditText) regDialogF.findViewById(R.id.rgTextInputUserName);
+        rgTextInputPassWord = (TextInputEditText) regDialogF.findViewById(R.id.rgTextInputPassword);
+        rgTextInputSPassWord = (TextInputEditText) regDialogF.findViewById(R.id.rgTextInputSecondPassword);
+
         loginDialog = new MaterialDialog.Builder(getContext())
                 .title("登陆")
                 .customView(loginView,true)
@@ -121,7 +148,28 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 .neutralText("无法登陆？")
                 .neutralColor(getResources().getColor(R.color.base_text_black))
                 .onPositive((dialog, which) -> {
+                    mePresenter.login(et_username.getText().toString(),et_password.getText().toString());
+                })
+                .onNeutral((dialog, which) -> {
+                    SnackbarUtils.show(root,"点击",0,null);
+                })
+                .build();
 
+        commitDialog = new MaterialDialog.Builder(getContext())
+                .content("正在登录...")
+                .progress(true, 0)
+                .build();
+
+        regDialogF = new MaterialDialog.Builder(getContext())
+                .title("注册")
+                .customView(regViewF,true)
+                .positiveText("下一步")
+                .negativeText("取消")
+                .onPositive((dialog, which) -> {
+
+                })
+                .onNeutral((dialog, which) -> {
+                    regDialogF.dismiss();
                 })
                 .build();
         showContent(true);
@@ -145,9 +193,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 /*Intent i = new Intent(context, LoginActivity.class);
                 startActivity(i);
                 mainActivity.overridePendingTransition(0,0);*/
-                loginDialog.show();
+                mePresenter.LoginBtClick();
                 break;
             case R.id.bt_register:
+                mePresenter.register();
                 /*i = new Intent(context, RegisterActivity.class);
                 startActivity(i);
                 mainActivity.overridePendingTransition(0,0);*/
@@ -167,6 +216,56 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void showLoginDialog() {
+        loginDialog.show();
+    }
+
+    @Override
+    public void showCommitDialog() {
+        commitDialog.show();
+    }
+
+    @Override
+    public void showRegDialogF() {
+
+    }
+
+    @Override
+    public void showRegDialogS() {
+
+    }
+
+    @Override
+    public void dimissRegDialogF() {
+
+    }
+
+    @Override
+    public void dimissRegDialogS() {
+
+    }
+
+    @Override
+    public void dimissLoginDialog() {
+        loginDialog.dismiss();
+    }
+
+    @Override
+    public void dimissCommitDialog() {
+        commitDialog.dismiss();
+    }
+
+    @Override
+    public void registerSuccess() {
+        commitDialog.dismiss();
+    }
+
+    @Override
+    public void registerFailure(String error) {
+        textInputPassword.setError(error);
+        textInputPassword.setEnabled(true);
+    }
 
     public class LoginextWatcher implements TextWatcher {
 
@@ -178,7 +277,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
         @Override
         public void afterTextChanged(Editable arg0) {
-            if(et_username.getText().toString().length()>=6&&
+            if(et_username.getText().toString().length()>=2&&
                     et_password.getText().toString().length()>=6){
                 loginDialog.getActionButton(DialogAction.POSITIVE).setEnabled(true);
             }else {
