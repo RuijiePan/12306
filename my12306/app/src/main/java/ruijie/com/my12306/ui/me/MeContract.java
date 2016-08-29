@@ -1,5 +1,7 @@
 package ruijie.com.my12306.ui.me;
 
+import android.widget.EditText;
+
 import ruijie.com.my12306.ui.base.BasePresenter;
 import ruijie.com.my12306.ui.base.BaseView;
 
@@ -31,6 +33,22 @@ public interface MeContract {
 
         void registerFailure(String error);
 
+        void showRegNameError(String error);
+
+        void showRegPwdError(String error);
+
+        void showRegSPwdError(String error);
+
+        void showNickNameError(String error);
+
+        void showIdCardError(String error);
+
+        void showEmailError(String error);
+
+        void showIdentityError(String error);
+
+        void showPhoneError(String error);
+
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -44,5 +62,10 @@ public interface MeContract {
         void RegisterNextClick();
 
         void register();
+
+        boolean getCheckRegF(EditText username,EditText password,EditText spassword);
+
+        boolean getCheckRegS(EditText nickname,EditText idcard,EditText email,EditText identity,
+                             EditText phone);
     }
 }

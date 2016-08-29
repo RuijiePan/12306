@@ -34,6 +34,7 @@ import ruijie.com.my12306.ui.main.MainComponent;
 import ruijie.com.my12306.ui.register.RegisterActivity;
 import ruijie.com.my12306.util.MTextWatcher;
 import ruijie.com.my12306.util.SnackbarUtils;
+import ruijie.com.my12306.util.TextUtil;
 import ruijie.com.my12306.widget.citySelector.utils.ClearEditText;
 import rx.Subscriber;
 import rx.observers.Observers;
@@ -82,11 +83,21 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
     private ClearEditText rg_usernmae;
     private ClearEditText rg_password;
     private ClearEditText rg_spassword;
-    private TextInputEditText rgTextInputUserName;
-    private TextInputEditText rgTextInputPassWord;
-    private TextInputEditText rgTextInputSPassWord;
+    private ClearEditText rg_nickname;
+    private ClearEditText rg_idcard;
+    private ClearEditText rg_email;
+    private ClearEditText rg_identity;
+    private ClearEditText rg_phone;
+    private TextInputLayout rgTextInputUserName;
+    private TextInputLayout rgTextInputPassWord;
+    private TextInputLayout rgTextInputSPassWord;
     private TextInputLayout textInputPassword;
     private TextInputLayout textInputUserName;
+    private TextInputLayout rgTextInputNickName;
+    private TextInputLayout rgTextInputIdcard;
+    private TextInputLayout rgTextInputEmail;
+    private TextInputLayout rgTextInputIdentity;
+    private TextInputLayout rgTextInputPhone;
 
     public static MeFragment getInstance() {
         if (instance == null) {
@@ -134,12 +145,32 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
         et_password.addTextChangedListener(new LoginextWatcher(textInputPassword));
 
         regViewF = mainActivity.getLayoutInflater().inflate(R.layout.layout_register_f,null,false);
-        rg_usernmae = (ClearEditText) regDialogF.findViewById(R.id.rgUserName);
-        rg_password = (ClearEditText) regDialogF.findViewById(R.id.rgPassWord);
-        rg_spassword = (ClearEditText) regDialogF.findViewById(R.id.rgSPassWord);
-        rgTextInputUserName = (TextInputEditText) regDialogF.findViewById(R.id.rgTextInputUserName);
-        rgTextInputPassWord = (TextInputEditText) regDialogF.findViewById(R.id.rgTextInputPassword);
-        rgTextInputSPassWord = (TextInputEditText) regDialogF.findViewById(R.id.rgTextInputSecondPassword);
+        rg_usernmae = (ClearEditText) regViewF.findViewById(R.id.rgUserName);
+        rg_password = (ClearEditText) regViewF.findViewById(R.id.rgPassWord);
+        rg_spassword = (ClearEditText) regViewF.findViewById(R.id.rgSPassWord);
+        rgTextInputUserName = (TextInputLayout) regViewF.findViewById(R.id.rgTextInputUserName);
+        rgTextInputPassWord = (TextInputLayout) regViewF.findViewById(R.id.rgTextInputPassword);
+        rgTextInputSPassWord = (TextInputLayout) regViewF.findViewById(R.id.rgTextInputSecondPassword);
+        rg_usernmae.addTextChangedListener(new LoginextWatcher(rgTextInputUserName));
+        rg_spassword.addTextChangedListener(new LoginextWatcher(rgTextInputPassWord));
+        rg_spassword.addTextChangedListener(new LoginextWatcher(rgTextInputSPassWord));
+
+        regViewS = mainActivity.getLayoutInflater().inflate(R.layout.layout_register_s,null,false);
+        rg_nickname = (ClearEditText) regViewS.findViewById(R.id.rgNickName);
+        rg_idcard = (ClearEditText) regViewS.findViewById(R.id.rgIdcard);
+        rg_email = (ClearEditText) regViewS.findViewById(R.id.rgEmail);
+        rg_identity = (ClearEditText) regViewS.findViewById(R.id.rgIdentity);
+        rg_phone = (ClearEditText) regViewS.findViewById(R.id.rgPhone);
+        rgTextInputNickName = (TextInputLayout) regViewS.findViewById(R.id.rgTextInputNickName);
+        rgTextInputIdcard = (TextInputLayout) regViewS.findViewById(R.id.rgTextInputIdcard);
+        rgTextInputEmail = (TextInputLayout) regViewS.findViewById(R.id.rgTextInputEmail);
+        rgTextInputIdentity = (TextInputLayout) regViewS.findViewById(R.id.rgTextInputIdentity);
+        rgTextInputPhone = (TextInputLayout) regViewS.findViewById(R.id.rgTextInputPhone);
+        rg_nickname.addTextChangedListener(new LoginextWatcher(rgTextInputNickName));
+        rg_idcard.addTextChangedListener(new LoginextWatcher(rgTextInputIdcard));
+        rg_email.addTextChangedListener(new LoginextWatcher(rgTextInputEmail));
+        rg_identity.addTextChangedListener(new LoginextWatcher(rgTextInputIdentity));
+        rg_phone.addTextChangedListener(new LoginextWatcher(rgTextInputPhone));
 
         loginDialog = new MaterialDialog.Builder(getContext())
                 .title("登陆")
@@ -147,16 +178,12 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
                 .positiveText("登陆")
                 .neutralText("无法登陆？")
                 .neutralColor(getResources().getColor(R.color.base_text_black))
-                .onPositive((dialog, which) -> {
-                    mePresenter.login(et_username.getText().toString(),et_password.getText().toString());
-                })
-                .onNeutral((dialog, which) -> {
-                    SnackbarUtils.show(root,"点击",0,null);
-                })
+                .onPositive((dialog, which) -> mePresenter.login(TextUtil.getText(et_username),TextUtil.getText(et_password)))
+                .onNeutral((dialog, which) -> SnackbarUtils.show(root,"点击",0,null))
                 .build();
 
         commitDialog = new MaterialDialog.Builder(getContext())
-                .content("正在登录...")
+                .content("请稍后...")
                 .progress(true, 0)
                 .build();
 
@@ -165,11 +192,22 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
                 .customView(regViewF,true)
                 .positiveText("下一步")
                 .negativeText("取消")
-                .onPositive((dialog, which) -> {
+                .onPositive((dialog, which) -> mePresenter.RegisterNextClick())
+                .onNegative((dialog, which) -> regDialogF.dismiss())
+                .build();
 
-                })
+        regDialogS = new MaterialDialog.Builder(getContext())
+                .title("注册")
+                .customView(regViewS,true)
+                .positiveText("注册")
+                .negativeText("取消")
+                .neutralText("返回")
+                .neutralColor(getResources().getColor(R.color.base_text_black))
+                .onPositive((dialog, which) -> mePresenter.register())
+                .onNegative((dialog,which) -> regDialogS.dismiss())
                 .onNeutral((dialog, which) -> {
-                    regDialogF.dismiss();
+                    regDialogS.dismiss();
+                    regDialogF.show();
                 })
                 .build();
         showContent(true);
@@ -196,7 +234,7 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
                 mePresenter.LoginBtClick();
                 break;
             case R.id.bt_register:
-                mePresenter.register();
+                mePresenter.RegisterBtClick();
                 /*i = new Intent(context, RegisterActivity.class);
                 startActivity(i);
                 mainActivity.overridePendingTransition(0,0);*/
@@ -228,22 +266,22 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
 
     @Override
     public void showRegDialogF() {
-
+        regDialogF.show();
     }
 
     @Override
     public void showRegDialogS() {
-
+        regDialogS.show();
     }
 
     @Override
     public void dimissRegDialogF() {
-
+        regDialogF.dismiss();
     }
 
     @Override
     public void dimissRegDialogS() {
-
+        regDialogS.dismiss();
     }
 
     @Override
@@ -259,12 +297,69 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
     @Override
     public void registerSuccess() {
         commitDialog.dismiss();
+        rg_usernmae.setText("");
+        rg_password.setText("");
+        rg_spassword.setText("");
+        rg_nickname.setText("");
+        rg_idcard.setText("");
+        rg_email.setText("");
+        rg_identity.setText("");
+        rg_phone.setText("");
     }
 
     @Override
     public void registerFailure(String error) {
         textInputPassword.setError(error);
         textInputPassword.setEnabled(true);
+        commitDialog.dismiss();
+    }
+
+    @Override
+    public void showRegNameError(String error) {
+        rgTextInputUserName.setError(error);
+        rgTextInputUserName.setEnabled(true);
+    }
+
+    @Override
+    public void showRegPwdError(String error) {
+        rgTextInputPassWord.setError(error);
+        rgTextInputPassWord.setEnabled(true);
+    }
+
+    @Override
+    public void showRegSPwdError(String error) {
+        rgTextInputSPassWord.setError(error);
+        rgTextInputSPassWord.setEnabled(false);
+    }
+
+    @Override
+    public void showNickNameError(String error) {
+        rgTextInputNickName.setError(error);
+        rgTextInputNickName.setEnabled(true);
+    }
+
+    @Override
+    public void showIdCardError(String error) {
+        rgTextInputIdcard.setError(error);
+        rgTextInputIdcard.setEnabled(true);
+    }
+
+    @Override
+    public void showEmailError(String error) {
+        rgTextInputEmail.setError(error);
+        rgTextInputEmail.setEnabled(true);
+    }
+
+    @Override
+    public void showIdentityError(String error) {
+        rgTextInputIdentity.setError(error);
+        rgTextInputIdentity.setEnabled(true);
+    }
+
+    @Override
+    public void showPhoneError(String error) {
+        rgTextInputPhone.setError(error);
+        rgTextInputPhone.setEnabled(true);
     }
 
     public class LoginextWatcher implements TextWatcher {
@@ -277,11 +372,23 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
 
         @Override
         public void afterTextChanged(Editable arg0) {
-            if(et_username.getText().toString().length()>=2&&
-                    et_password.getText().toString().length()>=6){
+            if(TextUtil.getLength(et_username)>=2&&
+                    TextUtil.getLength(et_password)>=6){
                 loginDialog.getActionButton(DialogAction.POSITIVE).setEnabled(true);
             }else {
                 loginDialog.getActionButton(DialogAction.POSITIVE).setEnabled(false);
+            }
+
+            if(mePresenter.getCheckRegF(rg_usernmae,rg_password,rg_spassword)){
+                regDialogF.getActionButton(DialogAction.POSITIVE).setEnabled(true);
+            }else {
+                regDialogF.getActionButton(DialogAction.POSITIVE).setEnabled(false);
+            }
+
+            if(mePresenter.getCheckRegS(rg_nickname,rg_idcard,rg_email,rg_identity,rg_phone)){
+                regDialogS.getActionButton(DialogAction.POSITIVE).setEnabled(true);
+            }else {
+                regDialogS.getActionButton(DialogAction.POSITIVE).setEnabled(false);
             }
         }
 

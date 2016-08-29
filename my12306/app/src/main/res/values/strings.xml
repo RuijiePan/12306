@@ -51,5 +51,7 @@
     <string name="identity">身份类型</string>
     <string name="email">邮箱</string>
     <string name="register">注册</string>
+    <string name="nickname">昵称</string>
+    <string name="idcard">身份证</string>
     <!-- ====================日历选择器=========================================-->
 </resources>
