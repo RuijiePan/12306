@@ -8,7 +8,9 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,8 +111,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         et_password = (ClearEditText) loginView.findViewById(R.id.etPassWord);
         textInputUserName = (TextInputLayout) loginView.findViewById(R.id.textInputUserName);
         textInputPassword = (TextInputLayout) loginView.findViewById(R.id.textInputPassword);
-        et_username.addTextChangedListener(new MTextWatcher(textInputUserName));
-        et_password.addTextChangedListener(new MTextWatcher(textInputPassword));
+        et_username.addTextChangedListener(new LoginextWatcher(textInputUserName));
+        et_password.addTextChangedListener(new LoginextWatcher(textInputPassword));
 
         loginDialog = new MaterialDialog.Builder(getContext())
                 .title("登陆")
@@ -118,16 +120,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 .positiveText("登陆")
                 .neutralText("无法登陆？")
                 .neutralColor(getResources().getColor(R.color.base_text_black))
-                /*.inputType(InputType.TYPE_CLASS_TEXT |
-                        InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
-                        InputType.TYPE_TEXT_FLAG_CAP_WORDS)
-                .alwaysCallInputCallback()
-                .input(R.string.about, 0, false, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                .onPositive((dialog, which) -> {
 
-                    }
-                })*/
+                })
                 .build();
         showContent(true);
     }
@@ -172,5 +167,34 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+
+    public class LoginextWatcher implements TextWatcher {
+
+        TextInputLayout textInputLayout;
+
+        public LoginextWatcher(TextInputLayout textInputLayout) {
+            this.textInputLayout = textInputLayout;
+        }
+
+        @Override
+        public void afterTextChanged(Editable arg0) {
+            if(et_username.getText().toString().length()>=6&&
+                    et_password.getText().toString().length()>=6){
+                loginDialog.getActionButton(DialogAction.POSITIVE).setEnabled(true);
+            }else {
+                loginDialog.getActionButton(DialogAction.POSITIVE).setEnabled(false);
+            }
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            textInputLayout.setErrorEnabled(false);
+        }
+    }
 }
 
