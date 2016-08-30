@@ -6,6 +6,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,6 +27,8 @@ public class AboutActivity extends BaseSwipeBackActivity {
     LinearLayout llReveal;
     @Bind(R.id.nestedScrollView)
     NestedScrollView nestedScrollView;
+    @Bind(R.id.tv_pro_address)
+    TextView tvProAddress;
 
     @Override
     protected int initContentView() {
@@ -57,7 +60,6 @@ public class AboutActivity extends BaseSwipeBackActivity {
             }
         });
 
-        nestedScrollView.scrollBy(0,DisplayUtil.px2dip(this,60));
     }
 
     @Override
@@ -69,5 +71,12 @@ public class AboutActivity extends BaseSwipeBackActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

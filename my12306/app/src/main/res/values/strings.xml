@@ -56,7 +56,7 @@
     <string name="introduce">项目介绍</string>
     <!-- ====================日历选择器=========================================-->
 
-    <string name="about_project_introduce_content">12306项目所用的基本上是Rx系列的框架 ( Square + ReactiveX ) :\n\nRxJava、RxAndroid、Okhttp3、Dagger2、Retrofit2、Butterknife、Fresco、Reservoir\n\n以基本的MVP模式为主划分模块，抽出Presenter作为View代理业务层，减轻View层代码的耦合度，然后集成了现在主流的RxJava+RxAndroid+Retrofit组合框架。\n\n项目地址：https://github.com/RuijiePan/12306\n\nApi接口提供：暂未开放</string>
+    <string name="about_project_introduce_content">12306项目所用的基本上是Rx系列的框架 ( Square + ReactiveX ) :\n\nRxJava、RxAndroid、Okhttp3、Dagger2、Retrofit2、Butterknife、Fresco、Reservoir\n\n以基本的MVP模式为主划分模块，抽出Presenter作为View代理业务层，减轻View层代码的耦合度，然后集成了现在主流的RxJava+RxAndroid+Retrofit+Dagger2组合框架。\n\n项目地址：https://github.com/RuijiePan/12306\n\nApi接口提供：暂未开放</string>
     <string name="https_www_zquprj_gmail_com">https://github.com/RuijiePan</string>
-    <string name="github">作者简介: github爱好者\n\n邮箱: zquprj@gmail.com</string>
+    <string name="github">作者简介：Github爱好者、Android程序猿\n\n邮箱：zquprj@gmail.com</string>
 </resources>
