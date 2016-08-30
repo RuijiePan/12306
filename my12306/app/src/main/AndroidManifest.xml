@@ -40,6 +40,10 @@
             android:theme="@style/TransparentActivity"
             android:windowSoftInputMode="adjustResize"/>
 
+        <activity
+            android:name=".ui.me.AboutActivity"
+            android:theme="@style/TransparentActivity"/>
+
         <activity android:name=".widget.calendarSelector.CalendarSelectorActivity"
             android:theme="@style/TransparentActivity"/>
 

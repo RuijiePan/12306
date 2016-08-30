@@ -75,6 +75,7 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
     private MaterialDialog commitDialog;
     private MaterialDialog regDialogF;
     private MaterialDialog regDialogS;
+    private MaterialDialog aboutDialog;
     private View loginView;
     private View regViewF;
     private View regViewS;
@@ -181,6 +182,7 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
                 .onPositive((dialog, which) -> mePresenter.login(TextUtil.getText(et_username),TextUtil.getText(et_password)))
                 .onNeutral((dialog, which) -> SnackbarUtils.show(root,"点击",0,null))
                 .build();
+        loginDialog.getActionButton(DialogAction.POSITIVE).setEnabled(false);
 
         commitDialog = new MaterialDialog.Builder(getContext())
                 .content("请稍后...")
@@ -195,6 +197,7 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
                 .onPositive((dialog, which) -> mePresenter.RegisterNextClick())
                 .onNegative((dialog, which) -> regDialogF.dismiss())
                 .build();
+        regDialogF.getActionButton(DialogAction.POSITIVE).setEnabled(false);
 
         regDialogS = new MaterialDialog.Builder(getContext())
                 .title("注册")
@@ -210,7 +213,9 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
                     regDialogF.show();
                 })
                 .build();
+        regDialogS.getActionButton(DialogAction.POSITIVE).setEnabled(false);
         showContent(true);
+
     }
 
     @Override
@@ -250,6 +255,9 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
             case R.id.bt_notification:
                 break;
             case R.id.bt_about:
+                Intent i = new Intent(context,AboutActivity.class);
+                startActivity(i);
+                mainActivity.overridePendingTransition(0,0);
                 break;
         }
     }
