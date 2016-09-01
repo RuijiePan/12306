@@ -4,7 +4,7 @@ import android.content.Context;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
-import ruijie.com.my12306.db.dao.User;
+import ruijie.com.my12306.entity.User;
 import ruijie.com.my12306.util.SettingPrefUtil;
 
 /**
@@ -14,7 +14,6 @@ import ruijie.com.my12306.util.SettingPrefUtil;
 public class UserStorage {
 
     private Context mContext;
-    private String cookie;
     private String token;
     private User user;
 
@@ -31,7 +30,6 @@ public class UserStorage {
             SettingPrefUtil.setLoginUid(mContext,"");
         }
         user = null;
-        cookie = "";
         token = "";
         removeCookie();
     }
@@ -59,17 +57,6 @@ public class UserStorage {
             return token;
         }
         return user.getToken();
-    }
-
-    public String getCookie() {
-        if (isLogin()) {
-            return user.getCookie();
-        }
-        return cookie;
-    }
-
-    public void setCookie(String cookie) {
-        this.cookie = cookie;
     }
 
     public void setToken(String token) {

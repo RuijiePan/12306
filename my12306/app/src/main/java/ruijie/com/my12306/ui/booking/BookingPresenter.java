@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import ruijie.com.my12306.db.dao.User;
+import ruijie.com.my12306.entity.User;
 import ruijie.com.my12306.injector.PerActivity;
 import ruijie.com.my12306.ui.base.BaseView;
 import rx.Subscription;
@@ -55,7 +55,7 @@ public class BookingPresenter implements BookingContact.Presenter{
 
     @Override
     public void onCustomClick(ArrayList<User> list) {
-        User user = new User(1L,"1","1","1","1","1","1","1","1","1","1",1);
+        User user = new User("1","1","1","1","1","1","1","1","1",0 ,"1");
         list.add(user);
         list.add(user);
         mBookingView.addUser(list);

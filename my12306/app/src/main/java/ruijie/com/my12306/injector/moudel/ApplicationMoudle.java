@@ -11,7 +11,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
-import ruijie.com.my12306.components.okhttp.CookieInterceptor;
 import ruijie.com.my12306.components.okhttp.HttpLoggingInterceptor;
 import ruijie.com.my12306.components.okhttp.OkHttpHelper;
 import ruijie.com.my12306.components.retrofit.RequestHelper;
@@ -61,11 +60,6 @@ public class ApplicationMoudle {
     @Provides @Singleton
     LayoutInflater provideLayoutInflater(Context context) {
         return (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
-
-    @Provides @Singleton
-    CookieInterceptor provideCookieInterceptor(UserStorage mUserStorage) {
-        return new CookieInterceptor(mUserStorage);
     }
 
     @Provides @Singleton

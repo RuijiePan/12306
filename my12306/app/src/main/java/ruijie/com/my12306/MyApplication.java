@@ -20,8 +20,6 @@ import javax.inject.Inject;
 
 import okhttp3.OkHttpClient;
 import ruijie.com.my12306.components.storage.UserStorage;
-import ruijie.com.my12306.db.dao.User;
-import ruijie.com.my12306.db.entity.UserDao;
 import ruijie.com.my12306.injector.component.ApplicationComponent;
 import ruijie.com.my12306.injector.component.DaggerApplicationComponent;
 import ruijie.com.my12306.injector.moudel.ApplicationMoudle;
@@ -44,7 +42,6 @@ public class MyApplication extends Application {
 
     @Inject UserStorage mUserStorage;
     @Inject OkHttpClient mOkHttpClient;
-    @Inject UserDao mUserDao;
 
     @Override
     public void onCreate() {

@@ -28,8 +28,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ruijie.com.my12306.R;
-import ruijie.com.my12306.db.dao.User;
 import ruijie.com.my12306.entity.AddressItem;
+import ruijie.com.my12306.entity.User;
 import ruijie.com.my12306.event.addressEvent;
 import ruijie.com.my12306.event.calendarEvent;
 import ruijie.com.my12306.ui.base.BusFragment;
@@ -207,7 +207,7 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
         tv.setText("⊕乘客");
         fl_customer.setTag(0);
         fl_customer.addView(tv);
-        fl_customer.setOnClickListener(view -> presenter.onCustomClick(new ArrayList<>()));
+        fl_customer.setOnClickListener(view -> presenter.onCustomClick(new ArrayList<User>()));
 
         rxSubscription = RxBus.getDefault().toObservable(calendarEvent.class)
                 .subscribe(calendarEvent -> {
@@ -308,7 +308,7 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
         if (list != null)
             for (int i = 0; i < list.size(); i++) {
                 TextView tv = (TextView) inflater.inflate(R.layout.tv_customer, fl_customer, false);
-                tv.setText(list.get(i).getUserName());
+                tv.setText(list.get(i).getNickname());
                 tv.setTag(i);
                 fl_customer.addView(tv);
                 tv.setOnClickListener(view -> {

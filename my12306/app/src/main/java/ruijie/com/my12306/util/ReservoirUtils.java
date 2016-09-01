@@ -35,7 +35,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import ruijie.com.my12306.db.dao.User;
 import rx.Observable;
 
 /**
