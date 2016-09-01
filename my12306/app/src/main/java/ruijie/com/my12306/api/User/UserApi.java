@@ -28,10 +28,8 @@ public class UserApi {
     static final String BASE_URL = "http://172.18.0.139:8080/my12306/user/";
 
     private UserService userService;
-    private RequestHelper requestHelper;
 
-    public UserApi(RequestHelper requestHelper, OkHttpClient okHttpClient){
-        this.requestHelper = requestHelper;
+    public UserApi(OkHttpClient okHttpClient){
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
