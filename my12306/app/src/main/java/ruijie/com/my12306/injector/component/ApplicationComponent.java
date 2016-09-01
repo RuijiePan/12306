@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import ruijie.com.my12306.MyApplication;
-import ruijie.com.my12306.api.login.LoginApi;
+import ruijie.com.my12306.api.User.UserApi;
 import ruijie.com.my12306.components.okhttp.OkHttpHelper;
 import ruijie.com.my12306.components.storage.UserStorage;
 import ruijie.com.my12306.injector.moudel.ApiMoudle;
@@ -25,7 +25,7 @@ public interface ApplicationComponent {
 
     UserStorage getUserStorage();
 
-    LoginApi getLoginApi();
+    UserApi getUserApi();
 
     void inject(MyApplication application);
 

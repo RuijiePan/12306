@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import ruijie.com.my12306.R;
-import ruijie.com.my12306.entity.AddressItem;
+import ruijie.com.my12306.bean.AddressItem;
 
 /**
  * Created by prj on 2016/8/20.

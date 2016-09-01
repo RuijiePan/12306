@@ -1,16 +1,18 @@
 package ruijie.com.my12306.ui.me;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.blankj.utilcode.utils.RegularUtils;
-import com.blankj.utilcode.utils.StringUtils;
 
 import javax.inject.Inject;
 
 import ruijie.com.my12306.Constant;
-import ruijie.com.my12306.api.login.LoginApi;
-import ruijie.com.my12306.bean.loginBean;
+import ruijie.com.my12306.api.User.UserApi;
+import ruijie.com.my12306.bean.BaseData;
+import ruijie.com.my12306.bean.User;
+import ruijie.com.my12306.components.storage.UserStorage;
 import ruijie.com.my12306.util.TextUtil;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -23,12 +25,15 @@ import rx.functions.Action1;
 public class MePresenter implements MeContract.Presenter  {
 
     private MeContract.View meView;
-    private LoginApi loginApi;
+    private UserApi userApi;
     private Subscription mSubscription;
 
     @Inject
-    MePresenter(LoginApi loginApi){
-        this.loginApi = loginApi;
+    UserStorage userStorage;
+
+    @Inject
+    MePresenter(UserApi userApi){
+        this.userApi = userApi;
     }
 
     @Override
@@ -36,13 +41,14 @@ public class MePresenter implements MeContract.Presenter  {
 
         meView.dimissLoginDialog();
         meView.showCommitDialog();
-        mSubscription = loginApi.login(username,password)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(loginBean -> {
-                    if(loginBean.getStatus().equals(Constant.SUCCESS)){
-                        meView.registerSuccess();
+        mSubscription = userApi.login(username,password)
+                .subscribe(loginData -> {
+                    if(loginData.getStatus().equals(Constant.SUCCESS)){
+                        meView.loginSuccess();
+                        userStorage.setUser(loginData.getData());
+                        userStorage.isLogin();
                     }else{
-                        meView.registerFailure(loginBean.getMsg());
+                        meView.loginFailure(loginData.getMsg());
                         meView.showLoginDialog();
                     }
                     meView.dimissCommitDialog();
@@ -50,7 +56,7 @@ public class MePresenter implements MeContract.Presenter  {
                     throwable.printStackTrace();
                     meView.showLoginDialog();
                     meView.dimissCommitDialog();
-                    meView.registerFailure(throwable.toString());
+                    meView.loginFailure(throwable.toString());
                 });
     }
 
@@ -71,8 +77,27 @@ public class MePresenter implements MeContract.Presenter  {
     }
 
     @Override
-    public void register() {
+    public void register(User user) {
         meView.showCommitDialog();
+        meView.dimissRegDialogS();
+
+        mSubscription = userApi.register(
+                user.getUsername(),user.getPassword(),user.getNickname(),
+                user.getIdcard(),user.getEmail(),user.getIdentity(),user.getPhone())
+                .subscribe(baseData -> {
+                    if(baseData.getStatus().equals(Constant.SUCCESS)){
+                        meView.registerSuccess();
+                        meView.dimissCommitDialog();
+                    }else {
+                        meView.registerFailure(baseData.getMsg());
+                        meView.dimissCommitDialog();
+                        meView.showRegDialogF();
+                    }
+                },throwable -> {
+                    meView.registerFailure(throwable.toString());
+                    meView.dimissCommitDialog();
+                    meView.showRegDialogF();
+                });
     }
 
     @Override

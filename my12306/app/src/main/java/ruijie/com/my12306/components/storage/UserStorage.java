@@ -4,7 +4,7 @@ import android.content.Context;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
-import ruijie.com.my12306.entity.User;
+import ruijie.com.my12306.bean.User;
 import ruijie.com.my12306.util.SettingPrefUtil;
 
 /**
@@ -31,14 +31,6 @@ public class UserStorage {
         }
         user = null;
         token = "";
-        removeCookie();
-    }
-
-    private void removeCookie() {
-        CookieSyncManager.createInstance(mContext);
-        CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.removeAllCookie();
-        CookieSyncManager.getInstance().sync();
     }
 
     public boolean isLogin(){
@@ -61,5 +53,9 @@ public class UserStorage {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

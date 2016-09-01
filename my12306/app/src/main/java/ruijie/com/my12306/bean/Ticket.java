@@ -1,4 +1,4 @@
-package ruijie.com.my12306.entity;
+package ruijie.com.my12306.bean;
 
 public class Ticket {
     private Integer tid;

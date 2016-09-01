@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import javax.inject.Inject;
 
 import ruijie.com.my12306.Constant;
-import ruijie.com.my12306.api.login.LoginApi;
+import ruijie.com.my12306.api.User.UserApi;
 import ruijie.com.my12306.injector.PerActivity;
 import ruijie.com.my12306.util.TextUtil;
 import rx.Subscription;
@@ -20,11 +20,11 @@ public class LoginPresenter implements LoginContact.Presenter{
 
     private LoginContact.View mLoginView;
     private Subscription mSubscription;
-    private LoginApi mLoginApi;
+    private UserApi userApi;
 
     @Inject
-    public LoginPresenter(LoginApi loginApi){
-        mLoginApi = loginApi;
+    public LoginPresenter(UserApi userApi){
+        this.userApi = userApi;
     }
 
     @Override
@@ -38,10 +38,10 @@ public class LoginPresenter implements LoginContact.Presenter{
             return;
         }
         mLoginView.showLoading();
-        mSubscription = mLoginApi.login(username,password)
-                .map(loginBean -> {
-                    if(loginBean.getStatus().equals(Constant.SUCCESS))
-                    return loginBean.getUserBean();
+        mSubscription = userApi.login(username,password)
+                .map(baseData -> {
+                    if(baseData.getStatus().equals(Constant.SUCCESS))
+                    return baseData.getData();
                     return null;
                 })
                 .observeOn(AndroidSchedulers.mainThread())

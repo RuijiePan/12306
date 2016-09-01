@@ -10,15 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +24,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ruijie.com.my12306.R;
-import ruijie.com.my12306.entity.AddressItem;
-import ruijie.com.my12306.entity.User;
+import ruijie.com.my12306.bean.AddressItem;
+import ruijie.com.my12306.bean.User;
 import ruijie.com.my12306.event.addressEvent;
 import ruijie.com.my12306.event.calendarEvent;
 import ruijie.com.my12306.ui.base.BusFragment;
@@ -37,13 +33,11 @@ import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.ui.main.MainComponent;
 import ruijie.com.my12306.util.HidingScrollListener;
 import ruijie.com.my12306.util.RxBus;
-import ruijie.com.my12306.util.SnackbarUtils;
 import ruijie.com.my12306.util.TextUtil;
 import ruijie.com.my12306.widget.AddressSelectLayout;
 import ruijie.com.my12306.widget.calendarSelector.CalendarSelectorActivity;
 import ruijie.com.my12306.widget.FlowLayout;
 import ruijie.com.my12306.widget.citySelector.CitySelecterActivity;
-import rx.functions.Action1;
 
 /**
  * Created by Administrator on 2016/8/18.

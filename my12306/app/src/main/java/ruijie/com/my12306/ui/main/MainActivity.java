@@ -1,30 +1,13 @@
 package ruijie.com.my12306.ui.main;
 
-import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -32,17 +15,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import ruijie.com.my12306.R;
-import ruijie.com.my12306.entity.AddressItem;
-import ruijie.com.my12306.event.toolbarEvent;
 import ruijie.com.my12306.injector.HasComponent;
 import ruijie.com.my12306.ui.base.BusActivity;
-import ruijie.com.my12306.ui.booking.BookingAdapter;
 import ruijie.com.my12306.ui.booking.BookingFragment;
 import ruijie.com.my12306.ui.login.LoginFragment;
 import ruijie.com.my12306.ui.me.MeFragment;
 import ruijie.com.my12306.ui.search.SearchFragment;
-import ruijie.com.my12306.util.RxBus;
-import ruijie.com.my12306.util.SnackbarUtils;
 
 public class MainActivity extends BusActivity implements MainContract.View, HasComponent {
 

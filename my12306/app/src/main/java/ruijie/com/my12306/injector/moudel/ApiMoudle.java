@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
-import ruijie.com.my12306.api.login.LoginApi;
+import ruijie.com.my12306.api.User.UserApi;
 import ruijie.com.my12306.components.retrofit.RequestHelper;
 
 /**
@@ -17,8 +17,8 @@ import ruijie.com.my12306.components.retrofit.RequestHelper;
 public class ApiMoudle {
 
     @Provides @Singleton
-    public LoginApi proviceLoginApi(RequestHelper requestHelper, @Named("api") OkHttpClient okHttpClient){
-        return new LoginApi(requestHelper,okHttpClient);
+    public UserApi proviceUserApi(RequestHelper requestHelper, @Named("api") OkHttpClient okHttpClient){
+        return new UserApi(requestHelper,okHttpClient);
     }
 }
 

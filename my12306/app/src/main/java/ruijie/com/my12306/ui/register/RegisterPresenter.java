@@ -7,7 +7,8 @@ import com.blankj.utilcode.utils.StringUtils;
 
 import javax.inject.Inject;
 
-import ruijie.com.my12306.api.login.LoginApi;
+import ruijie.com.my12306.api.User.UserApi;
+import ruijie.com.my12306.bean.User;
 import ruijie.com.my12306.ui.base.BaseView;
 import ruijie.com.my12306.ui.login.LoginContact;
 import ruijie.com.my12306.util.StringUtil;
@@ -21,11 +22,11 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
     private Subscription mSubscription;
     private RegisterContract.View mRegisterView;
-    private LoginApi mLoginApi;
+    private UserApi userApi;
 
     @Inject
-    public RegisterPresenter(LoginApi loginApi) {
-        mLoginApi = loginApi;
+    public RegisterPresenter(UserApi loginApi) {
+        this.userApi = userApi;
     }
 
     @Override

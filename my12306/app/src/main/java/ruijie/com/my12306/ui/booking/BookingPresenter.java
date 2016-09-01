@@ -1,15 +1,13 @@
 package ruijie.com.my12306.ui.booking;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import ruijie.com.my12306.entity.User;
+import ruijie.com.my12306.bean.User;
 import ruijie.com.my12306.injector.PerActivity;
-import ruijie.com.my12306.ui.base.BaseView;
 import rx.Subscription;
 
 /**

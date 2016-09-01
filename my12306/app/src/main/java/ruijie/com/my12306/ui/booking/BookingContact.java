@@ -2,7 +2,7 @@ package ruijie.com.my12306.ui.booking;
 
 import java.util.ArrayList;
 
-import ruijie.com.my12306.entity.User;
+import ruijie.com.my12306.bean.User;
 import ruijie.com.my12306.ui.base.BasePresenter;
 import ruijie.com.my12306.ui.base.BaseView;
 

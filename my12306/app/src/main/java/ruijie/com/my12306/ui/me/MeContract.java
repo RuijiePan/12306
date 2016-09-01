@@ -2,6 +2,7 @@ package ruijie.com.my12306.ui.me;
 
 import android.widget.EditText;
 
+import ruijie.com.my12306.bean.User;
 import ruijie.com.my12306.ui.base.BasePresenter;
 import ruijie.com.my12306.ui.base.BaseView;
 
@@ -30,6 +31,10 @@ public interface MeContract {
         void dimissCommitDialog();
 
         void registerSuccess();
+
+        void loginSuccess();
+
+        void loginFailure(String error);
 
         void registerFailure(String error);
 
@@ -61,7 +66,7 @@ public interface MeContract {
 
         void RegisterNextClick();
 
-        void register();
+        void register(User user);
 
         boolean getCheckRegF(EditText username,EditText password,EditText spassword);
 

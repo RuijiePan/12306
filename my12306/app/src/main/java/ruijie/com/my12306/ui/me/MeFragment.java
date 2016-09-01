@@ -26,6 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ruijie.com.my12306.R;
+import ruijie.com.my12306.bean.User;
 import ruijie.com.my12306.ui.base.BaseFragment;
 import ruijie.com.my12306.ui.base.BusFragment;
 import ruijie.com.my12306.ui.login.LoginActivity;
@@ -206,7 +207,12 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
                 .negativeText("取消")
                 .neutralText("返回")
                 .neutralColor(getResources().getColor(R.color.base_text_black))
-                .onPositive((dialog, which) -> mePresenter.register())
+                .onPositive((dialog, which) -> {
+                    User user = new User("",TextUtil.getText(rg_usernmae),TextUtil.getText(rg_password),
+                            TextUtil.getText(rg_nickname),TextUtil.getText(rg_idcard),TextUtil.getText(rg_email)
+                    ,TextUtil.getText(rg_identity),TextUtil.getText(rg_phone),"",0,"");
+                    mePresenter.register(user);
+                })
                 .onNegative((dialog,which) -> regDialogS.dismiss())
                 .onNeutral((dialog, which) -> {
                     regDialogS.dismiss();
@@ -233,16 +239,10 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_login:
-                /*Intent i = new Intent(context, LoginActivity.class);
-                startActivity(i);
-                mainActivity.overridePendingTransition(0,0);*/
                 mePresenter.LoginBtClick();
                 break;
             case R.id.bt_register:
                 mePresenter.RegisterBtClick();
-                /*i = new Intent(context, RegisterActivity.class);
-                startActivity(i);
-                mainActivity.overridePendingTransition(0,0);*/
                 break;
             case R.id.bt_guide:
                 break;
@@ -304,7 +304,6 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
 
     @Override
     public void registerSuccess() {
-        commitDialog.dismiss();
         rg_usernmae.setText("");
         rg_password.setText("");
         rg_spassword.setText("");
@@ -313,13 +312,25 @@ public class MeFragment extends BusFragment implements View.OnClickListener,MeCo
         rg_email.setText("");
         rg_identity.setText("");
         rg_phone.setText("");
+        SnackbarUtils.show(root,"注册成功",0,null);
+    }
+
+    @Override
+    public void loginSuccess() {
+        SnackbarUtils.show(root,"登录成功",0,null);
+        et_username.setText("");
+        et_password.setText("");
+    }
+
+    @Override
+    public void loginFailure(String error) {
+        SnackbarUtils.show(root,error,0,null);
     }
 
     @Override
     public void registerFailure(String error) {
         textInputPassword.setError(error);
         textInputPassword.setEnabled(true);
-        commitDialog.dismiss();
     }
 
     @Override
