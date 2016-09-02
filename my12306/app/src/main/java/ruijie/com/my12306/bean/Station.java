@@ -15,6 +15,8 @@ public class Station {
 
     private String outbounddate;
 
+    private String name;
+
     public Integer getSid() {
         return sid;
     }
@@ -69,5 +71,13 @@ public class Station {
 
     public void setOutbounddate(String outbounddate) {
         this.outbounddate = outbounddate == null ? null : outbounddate.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

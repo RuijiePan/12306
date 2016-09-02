@@ -49,6 +49,9 @@
 
         <activity android:name=".widget.citySelector.CitySelecterActivity"
             android:theme="@style/TransparentActivity"/>
+
+        <activity android:name=".ui.booking.searchActivity.BookingSearchActivity"
+            android:theme="@style/TransparentActivity"/>
     </application>
 
 </manifest>

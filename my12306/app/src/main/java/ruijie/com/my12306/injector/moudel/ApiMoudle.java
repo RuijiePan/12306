@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import ruijie.com.my12306.api.Ticket.TicketApi;
 import ruijie.com.my12306.api.User.UserApi;
 import ruijie.com.my12306.components.retrofit.RequestHelper;
 
@@ -17,8 +18,13 @@ import ruijie.com.my12306.components.retrofit.RequestHelper;
 public class ApiMoudle {
 
     @Provides @Singleton
-    public UserApi proviceUserApi(RequestHelper requestHelper, @Named("api") OkHttpClient okHttpClient){
-        return new UserApi(requestHelper,okHttpClient);
+    public UserApi proviceUserApi(@Named("api") OkHttpClient okHttpClient){
+        return new UserApi(okHttpClient);
+    }
+
+    @Provides @Singleton
+    public TicketApi proviceTicketApi(@Named("api") OkHttpClient okHttpClient){
+        return new TicketApi(okHttpClient);
     }
 }
 

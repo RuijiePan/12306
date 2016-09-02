@@ -7,7 +7,7 @@ public class Order {
 
     private Integer uid;
 
-    private Integer number;
+    private Integer onumber;
 
     private Double price;
 
@@ -26,6 +26,8 @@ public class Order {
     private Integer ttype;
 
     private Double mileage;
+
+    private String odate;
 
     public Integer getOid() {
         return oid;
@@ -51,12 +53,12 @@ public class Order {
         this.uid = uid;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getOnumber() {
+        return onumber;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setOnumber(Integer onumber) {
+        this.onumber = onumber;
     }
 
     public Double getPrice() {
@@ -129,5 +131,13 @@ public class Order {
 
     public void setMileage(Double mileage) {
         this.mileage = mileage;
+    }
+
+    public String getOdate() {
+        return odate;
+    }
+
+    public void setOdate(String odate) {
+        this.odate = odate == null ? null : odate.trim();
     }
 }

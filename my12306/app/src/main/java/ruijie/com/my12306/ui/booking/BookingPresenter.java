@@ -3,12 +3,17 @@ package ruijie.com.my12306.ui.booking;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import ruijie.com.my12306.Constant;
+import ruijie.com.my12306.api.Ticket.TicketApi;
+import ruijie.com.my12306.bean.CheciData;
 import ruijie.com.my12306.bean.User;
 import ruijie.com.my12306.injector.PerActivity;
 import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * Created by prj on 2016/8/21.
@@ -18,15 +23,30 @@ public class BookingPresenter implements BookingContact.Presenter{
 
     private BookingContact.View mBookingView;
     private Subscription mSubscription;
+    private TicketApi ticketApi;
 
     @Inject
-    public BookingPresenter(){
-
+    public BookingPresenter(TicketApi ticketApi){
+        this.ticketApi = ticketApi;
     }
 
     @Override
     public void search(String from, String to, String startData, String startTime, String seatType, String ticketType, boolean isStudent) {
-
+        mBookingView.showLoading();
+        seatType = "0";
+        mSubscription = ticketApi.getCheciInfo(to,from,seatType,startData)
+                .subscribe(checiInfo -> {
+                    if(checiInfo.getStatus().equals(Constant.SUCCESS)) {
+                        mBookingView.startTicketActivtyByList(checiInfo.getData(),from,to);
+                    }
+                    else
+                        mBookingView.showError(checiInfo.getMsg());
+                    mBookingView.dimissLoading();
+                },throwable -> {
+                    throwable.printStackTrace();
+                    mBookingView.dimissLoading();
+                    mBookingView.showError(throwable.toString());
+                });
     }
 
     @Override

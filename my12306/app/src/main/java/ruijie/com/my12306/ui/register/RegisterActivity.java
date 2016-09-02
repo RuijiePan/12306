@@ -29,7 +29,6 @@ import io.codetail.widget.RevealLinearLayout;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.injector.moudel.ActivityMoudle;
 import ruijie.com.my12306.ui.base.BaseSwipeBackActivity;
-import ruijie.com.my12306.ui.main.DaggerMainComponent;
 import ruijie.com.my12306.ui.main.MainMoudle;
 import ruijie.com.my12306.util.AnimationUtil;
 import ruijie.com.my12306.util.BimpUtil;

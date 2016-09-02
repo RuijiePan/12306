@@ -1,7 +1,10 @@
 package ruijie.com.my12306.ui.booking;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import ruijie.com.my12306.bean.CheciData;
+import ruijie.com.my12306.bean.TicketData;
 import ruijie.com.my12306.bean.User;
 import ruijie.com.my12306.ui.base.BasePresenter;
 import ruijie.com.my12306.ui.base.BaseView;
@@ -17,10 +20,13 @@ public interface BookingContact {
 
         void dimissLoading();
 
+        void showError(String error);
+
         void getCheck(boolean[] check);
 
         void addUser(ArrayList<User> list);
 
+        void startTicketActivtyByList(List<CheciData> list,String from,String to);
     }
 
     interface Presenter extends BasePresenter<View>{

@@ -6,12 +6,14 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import ruijie.com.my12306.MyApplication;
+import ruijie.com.my12306.api.Ticket.TicketApi;
 import ruijie.com.my12306.api.User.UserApi;
 import ruijie.com.my12306.components.okhttp.OkHttpHelper;
 import ruijie.com.my12306.components.storage.UserStorage;
 import ruijie.com.my12306.injector.moudel.ApiMoudle;
 import ruijie.com.my12306.injector.moudel.ApplicationMoudle;
 import ruijie.com.my12306.ui.base.BaseActivity;
+import ruijie.com.my12306.ui.booking.searchActivity.BookingSearchActivity;
 
 /**
  * Created by prj on 2016/8/15.
@@ -26,6 +28,8 @@ public interface ApplicationComponent {
     UserStorage getUserStorage();
 
     UserApi getUserApi();
+
+    TicketApi getTicketApi();
 
     void inject(MyApplication application);
 

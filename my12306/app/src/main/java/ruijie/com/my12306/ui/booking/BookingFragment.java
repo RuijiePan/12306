@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +26,17 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ruijie.com.my12306.R;
 import ruijie.com.my12306.bean.AddressItem;
+import ruijie.com.my12306.bean.CheciData;
 import ruijie.com.my12306.bean.User;
 import ruijie.com.my12306.event.addressEvent;
 import ruijie.com.my12306.event.calendarEvent;
 import ruijie.com.my12306.ui.base.BusFragment;
+import ruijie.com.my12306.ui.booking.searchActivity.BookingSearchActivity;
 import ruijie.com.my12306.ui.main.MainActivity;
 import ruijie.com.my12306.ui.main.MainComponent;
 import ruijie.com.my12306.util.HidingScrollListener;
 import ruijie.com.my12306.util.RxBus;
+import ruijie.com.my12306.util.SnackbarUtils;
 import ruijie.com.my12306.util.TextUtil;
 import ruijie.com.my12306.widget.AddressSelectLayout;
 import ruijie.com.my12306.widget.calendarSelector.CalendarSelectorActivity;
@@ -282,6 +286,11 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
     }
 
     @Override
+    public void showError(String error) {
+        SnackbarUtils.show(root,error,0,null);
+    }
+
+    @Override
     public void getCheck(boolean[] check) {
         for (int i = 0; i < check.length; i++) {
             if (check[i]) {
@@ -310,6 +319,16 @@ public class BookingFragment extends BusFragment implements BookingContact.View,
                     deleteDialog.show();
                 });
             }
+    }
+
+    @Override
+    public void startTicketActivtyByList(List<CheciData> list,String from,String to) {
+        Intent intent = new Intent(context, BookingSearchActivity.class);
+        intent.putExtra("list",(Serializable)list);
+        intent.putExtra("from",from);
+        intent.putExtra("to",to);
+        startActivity(intent);
+        SnackbarUtils.show(root,list.toString(),0,null);
     }
 
     @Override
